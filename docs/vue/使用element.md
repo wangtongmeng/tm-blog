@@ -34,3 +34,31 @@ const tableData = data.map(item => ({data: `${item.name},${item.color},${item.is
 </el-table-column>
 ```
 
+## tab
+
+### tab切换时echarts不显示
+
+不显示代码
+
+```vue
+<el-tabs v-model="activeName" value="" @tab-click="handleClick">
+	<el-tab-pane label="用户" name="user">用户</el-tab-pane>
+	<el-tab-pane label="服务人员" name="servicer">服务人员</el-tab-pane>
+	<el-tab-pane label="订单" name="order">订单</el-tab-pane>
+</el-tabs>
+```
+
+设置 el-tabs 的 v-model，并给 el-tab-pane 加上 lazy 属性
+
+```vue
+<el-tabs v-model="activeName" value="" @tab-click="handleClick">
+	<el-tab-pane label="用户" name="user" lazy>用户</el-tab-pane>
+	<el-tab-pane label="服务人员" name="servicer" lazy>服务人员</el-tab-pane>
+	<el-tab-pane label="订单" name="order" lazy>订单</el-tab-pane>
+</el-tabs>
+```
+
+**参考**
+
+ https://blog.csdn.net/SanJiK/article/details/79764429 
+

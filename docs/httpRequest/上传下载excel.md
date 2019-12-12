@@ -21,7 +21,6 @@ url:http:www.xxx.com/api/download
 }
 </script>
 </html>
-
 ```
 
 post 方法：正常传参，后端返回下载地址，在使用 window.location.href = '地址' 进行下载。
@@ -87,4 +86,6 @@ this.$http({
 1.  报错后端直接返回http状态码4XX,带error 
 2.  http状态码还是200,需要和后端在响应头约定下报错格式。比如后端在header里新增个errcode属性和error_content属性,如果errcode不等于undefined,中断执行,弹窗error-contente内容 
 
-### 
+### 其他参考
+
+ https://segmentfault.com/a/1190000016220106 

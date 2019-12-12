@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/littlebirdflying/tm-blog#readme",
   "devDependencies": {
-    "vuepress": "^1.2.0"
+    "vuepress": "^1.2.0",
+    "vuepress-plugin-autobar": "github:boboidream/vuepress-bar"
   }
 }

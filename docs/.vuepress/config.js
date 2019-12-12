@@ -22,30 +22,20 @@ module.exports = {
       },
       {
         text: '关于我',
-        link: '/me'
+        link: '/about/'
       },
     ],
-    sidebar: 'auto',
-    // sidebar: {
-    //   '/foo/': [
-    //     '',
-    //     'one',
-    //     'two'
-    //   ],
-    //   '/bar/': [
-    //     '',
-    //     'three',
-    //     'four'
-    //   ],
-    //   '/': [
-    //     '',
-    //     'contact',
-    //     'about'
-    //   ]
-    // }
+    sidebar: [
+      '/',
+      ['/css/', 'css'],
+      ['/javascript/', 'javascript'] // 第二个参数是别名
+    ],
+    sidebarDepth: 2,
+    displayAllHeaders: true, // 显示所有页面的标题链接
     lastUpdated: 'Last Updated'
   },
   markdown: {
     lineNumbers: true
-  }
+  },
+  // plugins: ['autobar']
 }
