@@ -2,7 +2,7 @@
 
 ## table
 
-根据单元格对应数据设置不同单元格的样式
+### 根据单元格对应数据设置不同单元格的样式
 
 ```js
 // 后端响应数据
@@ -32,6 +32,18 @@ const tableData = data.map(item => ({data: `${item.name},${item.color},${item.is
     </div>
   </template>
 </el-table-column>
+```
+
+### 表格冒泡的 tooltip设置宽度
+
+ 在el-table-column种使用:show-overflow-tooltip="true"的时候，内容太多会有一个 tooltip冒泡弹框 
+
+ 如果需要改变宽度的话，就需要修改tooltip的样式，如下 ：
+
+```css
+.el-tooltip__popper {
+  max-width: 90% !important;
+}
 ```
 
 ## tab
