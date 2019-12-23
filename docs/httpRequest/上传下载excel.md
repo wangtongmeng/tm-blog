@@ -86,6 +86,81 @@ this.$http({
 1.  报错后端直接返回http状态码4XX,带error 
 2.  http状态码还是200,需要和后端在响应头约定下报错格式。比如后端在header里新增个errcode属性和error_content属性,如果errcode不等于undefined,中断执行,弹窗error-contente内容 
 
-### 其他参考
+#### 兼容 ie
+
+> window.URL.createObjectURL Blob URL在IE中兼容问题
+
+**问题**
+
+window.URL.createObjectURL()可以直接生成blob:开头的链接，该链接产生于浏览器端，不会占用服务器资源。
+
+window.URL.createObjectURL()在IE10, IE11以及Edge中生成的blob:链接，你不能把它加到一个`<a>`节点上，也不能直接在浏览器地址栏打开访问，并且得到“Error: 拒绝访问。IE9也不支持window.URL.createObjectURL创建Blob URLs。
+
+IE / Edge和Chrome / Firefox对于window.URL.createObjectURL创建Blob链接最直观的区别在于得到的blob:链接形式不一样，分别在微软浏览器和标准浏览器中运行以下代码，得到两种Blob链接形式
+
+- 第一种为chrome和firefox生成的带有当前域名的标准blob:链接形式
+- 第二种为Microsoft IE和Microsoft Edge生成的不带域名的blob:链接。
+
+可以通过window.URL.createObjectURL(new Blob()) . indexOf(location.host) < 0来检测是否是IE或早期生成Object URL不带域名的Edge。如果表达式返回true则时IE或Edge旧版本。
+
+**解决方案**
+
+```js
+var download_csv_using_blob = function (file_name, content) {
+  var csvData = new Blob([content], { type: 'text/csv' });
+  // for IE
+  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveOrOpenBlob(csvData, file_name);
+  }
+  // for Non-IE (chrome, firefox etc.)
+  else {
+    var a = document.createElement('a');
+    document.body.appendChild(a);
+    a.style = 'display: none';
+    var url = window.URL.createObjectURL(csvData);
+    a.href =  url;
+    a.download = file_name;
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  }
+```
+
+**下载excel**
+
+```js
+export const downloadExcelUsingBlob = (fileName, content) => {
+  const excelData = new Blob([content], {type: 'application/vnd.ms-excel'})
+  // for IE
+  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveOrOpenBlob(content, fileName);
+  }
+  // for Non-IE (chrome, firefox etc.)
+  else {
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.style = 'display: none';
+    const url = window.URL.createObjectURL(excelData);
+    a.href =  url;
+    a.download = fileName;
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  }
+}
+```
+
+使用
+
+```js
+downloadExcel(reqData).then(res => {
+  downloadExcelUsingBlob('xxx.xls', res.data)
+})
+```
+
+
+### 参考
 
  https://segmentfault.com/a/1190000016220106 
+
+ https://blog.csdn.net/u014628388/article/details/81738704 
