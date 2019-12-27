@@ -74,3 +74,12 @@ const tableData = data.map(item => ({data: `${item.name},${item.color},${item.is
 
  https://blog.csdn.net/SanJiK/article/details/79764429 
 
+## select
+
+el-form-item 内的 el-select如何自适应宽度  https://segmentfault.com/q/1010000020225305 
+
+## form
+
+### 表单校验
+
+https://www.e-learn.cn/content/javascript/921294

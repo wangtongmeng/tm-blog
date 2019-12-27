@@ -158,6 +158,11 @@ downloadExcel(reqData).then(res => {
 })
 ```
 
+## 其他兼容ie的问题
+
+ https://juejin.im/post/5d6742f86fb9a06b2116fb34 
+
+ http://47.105.149.100/web/vue-hou-tai-guan-li-lei-xiang-mu-jian-rong-ie9- 
 
 ### 参考
 
