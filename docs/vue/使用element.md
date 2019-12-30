@@ -83,3 +83,34 @@ el-form-item 内的 el-select如何自适应宽度  https://segmentfault.com/q/1
 ### 表单校验
 
 https://www.e-learn.cn/content/javascript/921294
+
+## cascader
+
+### cascader 级联选择器hover选择效果
+
+官网例子
+
+```vue
+<div class="block">
+  <span class="demonstration">hover 触发子菜单</span>
+  <el-cascader
+    v-model="value"
+    :options="options"
+    :props="{ expandTrigger: 'hover' }"   这样是不生效的
+    @change="handleChange"></el-cascader>
+```
+
+生效例子
+
+```vue
+<div class="block">
+  <span class="demonstration">hover 触发子菜单</span>
+  <el-cascader
+    expand-trigger="hover"
+    :options="options"
+    v-model="selectedOptions2"
+    @change="handleChange">
+  </el-cascader>
+</div
+```
+
