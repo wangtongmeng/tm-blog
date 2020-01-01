@@ -43,11 +43,35 @@ npm -v
 
 - 基于yarn管理
 
-A: npm install yarn -g
+A: npm install yarn -gx [xing]
 
 B: yarn add / yarn remove
 
+安装完成node后，基本上自带npm模块管理器
+
 ## node基础概念
 
+1.node并不是一门语言，它是一个工具或环境
 
+- 基于V8环境（webkit）渲染和解析JS的
+- 单线程
+- 无阻塞I/O操作的
+- 事件驱动
+- ...
 
+之所以把node称之为服务端语言，是因为node给予JS操作服务的能力：我们在服务器端安装node，只用js完成服务器端需要处理的一些事情，最后把写好的js代码交给node 环境运行即可。
+
+2.在node环境中把JS代码执行
+
+- REPL命令（Read-Evaluate-Print-Loop：输入-求值-输出-循环）
+  - node.js command prompt 或 cmd等终端输入node
+- 基于 node xxx.js 命令执行
+- 基于WB这类编辑工具直接执行
+
+基于node命令执行，找到当前文件所在的文件夹，再此目录下打开DOS窗口，在窗口中执行 node xxx.js，这样就相当于在node环境下把JS文件中的代码执行了
+
+> 如何在当前文件目录中打开DOS窗口
+>
+> - 基于DOS命令中的“cd”一层层进入
+> - 在当前目录地址栏中输入cmd，快速在当前目录打开
+> - shift+鼠标右键，在此处打开命令窗口
