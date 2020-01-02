@@ -93,6 +93,17 @@ B: yarn add / yarn remove
 
 `基于cnpm淘宝镜像来处理`
 
+3.解决安装版本的问题
+
+>首先查看当前模块的历史版本信息
+>
+>`npm view jquery > jquery.version.json`：把当前模块的历史信息输出到具体的某个文件中。
+> 
+>安装指定的版本模块
+>`yarn add jquery@1.11.3`：npm和yarn都是这样来指定安装具体版本模块的
+
+
+
 ## node基础概念
 
 1.node并不是一门语言，它是一个工具或环境
