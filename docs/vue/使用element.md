@@ -84,6 +84,42 @@ el-form-item 内的 el-select如何自适应宽度  https://segmentfault.com/q/1
 
 https://www.e-learn.cn/content/javascript/921294
 
+是否必填，格式验证，大小验证
+
+```js
+rules: {
+    name:[{
+      required: true, message: '请输入用户名', trigger: 'blur'
+    }, {
+      min: 2, max: 6, message: '长度在 2 到 6 个字符'
+    },{
+      pattern: /^[\u4E00-\u9FA5]+$/, message: '用户名只能为中文'
+    },{
+      pattern:/^[a-zA-Z]w{1,4}$/, message: '以字母开头，长度在2-5之间， 只能包含字符、数字和下划线'
+    }],
+    password: [{
+        required: true, message: '请输入密码', trigger: 'blur'
+    }, {
+        min: 6, max: 16, message: '长度在 6 到 16个字符'
+    }, {
+        pattern: /^(\w){6,16}$/, message: '只能输入6-16个字母、数字、下划线'
+    }],
+    mobile:[{ 
+        required: true, message: '请输入手机号码', trigger: 'blur'
+    },{
+    validator:function(rule,value,callback){
+            if(/^1[34578]\d{9}$/.test(value) == false){
+                callback(new Error("请输入正确的手机号"));
+            }else{
+                callback();
+            }
+        }, trigger: 'blur'}
+    ],
+   }
+```
+
+
+
 ## cascader
 
 ### cascader 级联选择器hover选择效果
