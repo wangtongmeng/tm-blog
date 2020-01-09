@@ -47,6 +47,7 @@ insertBefore
 cloneNode(true/false)
 removeChild
 set/get/removeAttribute
+
 ### 零散的
 xxx.style.xxx = xxx 设置行内样式
 =>xxx.style.xxx 获取行内样式
@@ -77,6 +78,81 @@ document.documentElement.clientHeight || document.body.clientHeight // 兼容
 ```js
 document.documentElement.scrollWidth || document.body.scrollWidth
 document.documentElement.scrollHeight || document.body.scrollHeight
+```
+5.`offsetParent`：当前盒子的父级参照物。`offsetTop` / `offsetLeft`：获取当前盒子距离其父级参照物的偏移量(上偏移/左偏移) 当前盒子的外边框开始~父级参照物的内边框
+
+=>“参照物”：同一个平面中，元素的父级参照物和结构没有必然联系，默认他们的父级参照物都是body（当前平面最外层的盒子） body的父级参照物是null
+
+```js
+console.log(center.offsetParent) // body
+console.log(inner.offsetParent)  // body
+console.log(outer.offsetParent)  // body
+```
+
+=>“参照物可以改变”：构建出不同的平面即可（使用zIndex，但是这个属性只对定位有作用），所以改变元素的定位(position:relative/absolute/fixed)可以改变其父级参照物
+
+```js
+utils.css(outer, {
+  position: 'relative' //=>把outer脱离原有的平面，独立出一个新的平面，后代元素的父级参照物都会以它为参考
+});
+console.log(center.offsetParent); // outer
+console.log(inner.offsetParent);  // outer
+console.log(outer.offsetParent);  // body
+utils.css(inner, {position: 'absolute'})
+console.log(center.offsetParent);       // inner
+console.log(inner.offsetParent);        // outer
+console.log(outer.offsetParent);        // body
+console.log(document.body.offsetParent);// null
+```
+封装获取当前元素距离body的偏移
+
+```js
+// offset：获取当前元素距离body的偏移(左偏移和上偏移)
+let offset = function (curEle) {
+  // 1.先获取当前元素本身的左/上偏移
+  let curLeft = curEle.offsetLeft,
+      curTop = curEle.offsetTop,
+      p = curEle.offsetParent;
+
+  // 2.累加父参照物的边框和偏移(一直向上找,找到BODY为止,每当找到一个父参照物都把它的边框和偏移累加起来,根据元素不一样,具体找几次也不知道)
+  // tageName获取当前元素的标签名(大写的)
+  while (p.tagName !== 'BODY') {//=>当找到的父参照物是BODY结束查找和累加操作
+    //3.把找到的父参照物的边框和偏移值累加起来
+    curLeft += p.clientLeft;
+    curLeft += p.offsetLeft;
+    curTop += p.clientTop;
+    curTop += p.offsetTop;
+    p = p.offsetParent;//=>基于当前找到的父参照物继续向上查找
+  }
+
+  return {
+    top: curTop,
+    left: curLeft
+  };
+};
+```
+
+6.`scrollTop` / `scrollLeft`：滚动条卷去的宽度或者高度
+最小卷去值：0
+最大卷去值：真实页面的高度 - 一屏幕的高度 
+
+```js
+document.documentElement.scrollHeight-document.documentElement.clientHeight
+```
+在JS盒子模型13个属性中，只有scrollTop/scrollLeft是“可读写”属性，其余都是“只读”属性
+操作浏览器的盒子模型属性，我们一般都要写两套，用来兼容各种模式下的浏览器
+
+```js
+// 操作浏览器盒子模型属性的
+let winHandle = function (attr, value) {
+  if (typeof value !== 'undefined') {
+    //=>设置盒子模型属性值:SCROLL-TOP/LEFT
+    document.documentElement[attr] = value;
+    document.body[attr] = value;
+    return;
+  }
+  return document.documentElement[attr] || document.body[attr];
+};
 ```
 ### 通过JS盒模型属性获取值的特点
 1.获取的都是数字不带单位
