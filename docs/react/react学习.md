@@ -118,11 +118,81 @@ console.log(qs.parse('name=zhangsan&age=20')) // {name: "zhangsan", age: "20"}
 ​				$ yarn add less less-loader
 ​				less是开发和生产环境下都需要配置的
 
-​		
+```js
+react16.4.1版本，修改dev和prod两个js文件
+{
+  test: /\.(css|less)$/,
+  use: [
+    require.resolve('style-loader'),
+    ...
+    {
+      loader: require.resolve('less-loader')
+    }
+  ]
+}
+```
 
-​	我们预览项目时，也是先基于webpack编译，把编译后的内容放到浏览器中运行，所有如果项目中使用了less，我们需要修改webpack配置项，把配置项中加入less的编译工作，这样后期预览项目，首先基于webpack把less编译成css，然后在呈现在页面中。
+react16.12.0版本
+
+```js
+// config/webpack.config.js
+const lessRegex = /\.less/;
+const lessModuleRegex = /\.module\.less/;
+
+// 配置less
+{
+  test: lessRegex,
+    exclude: lessModuleRegex,
+      use: getStyleLoaders(
+        {
+          importLoaders: 2,
+          sourceMap: isEnvProduction
+          ? shouldUseSourceMap
+          : isEnvDevelopment,
+        },
+        'less-loader'
+      ),   
+        sideEffects: true,
+},
+  {
+    test: lessModuleRegex,
+      use: getStyleLoaders(
+        {
+          importLoaders: 2,
+          sourceMap: isEnvProduction
+          ? shouldUseSourceMap
+          : isEnvDevelopment,
+          modules: true,
+          getLocalIdent: getCSSModuleLocalIdent,
+        },
+        'less-loader'
+      ),
+  },
+```
 
 
 
+我们预览项目时，也是先基于webpack编译，把编译后的内容放到浏览器中运行，所有如果项目中使用了less，我们需要修改webpack配置项，把配置项中加入less的编译工作，这样后期预览项目，首先基于webpack把less编译成css，然后在呈现在页面中。
 
+> $ set HTTPS=true&&npm start 开启https协议模式（设置环境变量https的值）
 
+> $ set PORT=63341&&yarn start 修改端口号
+
+改回去
+
+> $ set HTTPS=false&&set PORT=3000&&yarn start
+
+## JSX语法-大括号
+
+react & react-dom
+【渐进式框架】
+		一种最流行的框架设计思想，一般框架中都包含很多内容，这样到这框架的体积过于臃肿，拖慢加载的速度。真实项目中，我们使用一个框架，不一定用到所有的功能，此时我们应该把框架的功能进行拆分，用户想用什么，让其自己自由组合即可。
+
+​		全家桶：渐进式框架N多部分的组合
+
+​		vue全家桶：vue-cli/vue/vue-router/vuex/axios(fetch)/vue element/vant/iview
+​		react全家桶：create-react-app/react/react-dom/react-router/redux/react-redux/axios/ant/dva/saga/mobx
+
+1.react：react框架的核心部分，提供了Component类供我们进行组件开发，提供了钩子函数（声明周期函数：所有的声明周期函数都是基于回调函数完成的）
+
+2.react-dom：把JSX语法（react独有的语法）渲染为真实dom（能够放到页面中展示的结构都叫做真实的dom）的组件
