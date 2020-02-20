@@ -196,3 +196,85 @@ react & react-dom
 1.react：react框架的核心部分，提供了Component类供我们进行组件开发，提供了钩子函数（声明周期函数：所有的声明周期函数都是基于回调函数完成的）
 
 2.react-dom：把JSX语法（react独有的语法）渲染为真实dom（能够放到页面中展示的结构都叫做真实的dom）的组件
+
+**ReactDOM.render**
+
+ReactDOM.render([jsx],[container],[callback])：把jsx元素渲染到页面中
+	jsx：react虚拟元素
+	container：容器，我们把元素放到页面中的哪个容器中
+	callback：当把内容放到页面中呈现触发的回调函数
+
+```js
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+ReactDOM.render(<div id="box">hello world {data}</div>, root, () => {
+  let oBox =document.querySelector('#box')
+  console.log(oBox.innerHTML)
+})
+```
+
+**jsx语法**
+
+jsx：react独有的语法 javascript+xml 都是把html结构代码和js代码或数据混合在一起，但是它不是字符串。
+
+ 1.不建议我们把jsx直接渲染到body中，而是放在自己创建一个容器中，一般我们都放在一个id为root的div中即可
+ 2.在jsx中出现的{}是存放js的，但是要求js代码指执行完成有返回结果（js表达式）
+	->不能直接放一个对象数据类型的值（对象(除了给style赋值)、数组(数组中如果没有对象都是基本值或者是jsx元素，这样是可以的)、函数都不行）
+	->可以是基本类型的值（布尔类型什么都不显示、null、undefined也是jsx元素，代表的是空）
+	->循环判断的语句都不支持，但支持三元运算符
+3.循环数组创建jsx元素(一般都基于数组的map方法完成迭代)，需要给创建的元素设置唯一的key值（当前本次循环内唯一即可）
+
+```js
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom'; 
+
+let root = document.getElementById('root')
+let data = [
+  { name: 'zhangsan', age: 22 },
+  { name: 'lisi', age: 24 }
+]
+
+ReactDOM.render(<div id="box">
+  {/* {
+    data ? 'ok' : 'no'
+  } */}
+  <ul>
+    {
+      data.map((item, index) => {
+        let {name, age} = item
+        return <li key={index}>
+          <span>{name}</span>
+          <span>{age}</span>
+        </li>
+      })
+    }
+  </ul>
+</div>, root)
+```
+
+4.只能出现一个根元素
+5.给元素设置样式类用的是className而不是class
+6.style中不能直接写样式字符串，需要基于一个样式对象来遍历赋值
+
+```js
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+let root = document.getElementById('root')
+
+ReactDOM.render(<div id='box' className='box' style={{color: 'red'}}>
+  <h1>标题</h1>
+  <p>内容</p>
+</div>, root)
+```
+
+## jsx语法的渲染机制
+
+**jsx语法的渲染流程**
+
+把jsx（虚拟dom）编程真实的dom
+
