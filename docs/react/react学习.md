@@ -274,7 +274,51 @@ ReactDOM.render(<div id='box' className='box' style={{color: 'red'}}>
 
 ## jsx语法的渲染机制
 
-**jsx语法的渲染流程**
+**jsx语法的渲染机制=>把jsx（虚拟dom）编程真实的dom**
 
-把jsx（虚拟dom）编程真实的dom
+ https://babeljs.io/repl 
+
+jsx=>真实dom
+
+```js
+// src/index.js
+import React from 'react';
+import ReactDOM, {render} from 'react-dom'; // 从react-dom中导入一个ReactDOM，逗号后面的内容时把ReactDOM这个对象进行解构 <=> import {render} from 'react-dom';
+
+let root = document.getElementById('root');
+let styleObj = {color: 'red'};
+// jsx语句可以通过  https://babeljs.io/repl 在线转义查看
+render(<h1 id='titleBox' className='title' style={styleObj}>
+  hello world
+  </h1>, root)
+```
+
+1.基于babel中的语法解析模块（babel-preset-react）把jsx语法编译为 React.createElement(...) 结构
+
+```js
+React.createElement(
+    "h1",
+    { id: "titleBox", className: "title", style: styleObj}, 
+ );
+```
+
+2.执行 React.createElement(type, props, children)，创建一个对象（虚拟DOM）
+
+```js
+{
+ 		type: 'h1',
+    props: {
+      id: 'titleBox',
+        className: 'title',
+          style: {color: "red"},
+            children: "hello world" // 存放的是元素中的内容
+    },
+    ref: null,
+    key:: null
+    ...
+    __proto__:Object.prototype
+}
+```
+
+3.ReactDOM.render(jsx语法最后生成的对象，容器)，基于render方法把生成的对象动态创建为domy元素，插入到制定的容器中
 
