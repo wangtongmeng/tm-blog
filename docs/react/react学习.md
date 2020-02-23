@@ -1,5 +1,20 @@
 # react 学习
+
 React是FaceBook 工作研发的一款JS框架（MVC）
+
+## vscode使用react
+
+插件
+
+配置
+
+- vscode编写react代码 jsx中html标签tab键自动补全
+**在setting界面搜索 includeLanguages** ，点击Edit in setting.json，添加如下配置：
+```js
+"emmet.includeLanguages": {
+	"javascript": "javascriptreact"
+}
+```
 ## React的脚手架
 React是一款框架：具备自己的开发的独立思想（MVC： Model View Controller）
 - 划分组件
@@ -436,5 +451,262 @@ ReactDOM.render(jsx语法最后生成的对象，容器, 回调)，基于render�
  })
 ```
 
+## jsx语法的渲染机制（复杂结构的jsx处理）
 
+```js
+// src/self-jsx-复杂
+/**
+ * createElement: 创建jsx对象
+ *    参数：至少两个 type/props，children这个部分可能有多个
+ */
+function createElement(type, props, ...childrens) {
+  props = props || {}
+  // 创建一个对象，设置一些默认属性值
+  let obj = {
+    type: null,
+    props: {
+      children: ''
+    },
+    ref: null,
+    key: null
+  }
+  // 用传递的type和props覆盖原有的默认值
+  // obj = {...obj, type, props}
+  obj = {
+    ...obj,
+    type,
+    props: {
+      ...props,
+      children: childrens.length <= 1 ? (childrens[0] || '') : childrens
+    }
+  }
+  // 把ref和key提取出来(并且删除props中的属性)
+  'key' in obj.props ? (obj.key = obj.props.key, obj.props.key = undefined) : null
+  'ref' in obj.props ? (obj.ref = obj.props.ref, obj.props.ref = undefined) : null
+
+  return obj
+}
+
+function render(obj, container, callBack) {
+  let {type,props} = obj || {},
+    newElement = document.createElement(type)
+  for (const attr in props) {
+    if (!props.hasOwnProperty(attr)) break // 不是私有的直接结束遍历
+    let value = props[attr]
+    if (!props[attr]) continue // null or undefined，如果当前属性没有值，直接不处理即可
+
+    switch (attr.toUpperCase()) {
+      case 'CLASSNAME':
+        newElement.setAttribute('class', value)
+        break;
+      case 'STYLE':
+        if (value === '') break;
+        for (const styKey in value) {
+          if (value.hasOwnProperty(styKey)) {
+            newElement['style'][styKey] = value[styKey]
+          }
+        }
+        break;
+      case 'CHILDREN':
+        /**
+         * 可能是一个值：可能是字符串也可能是一个jsx对象
+         * 可能是一个数组：数组中的每一项可能是字符串也可能是jsx对象
+         */
+        // 首页把一个值变为数组，这样后期统一操作数组即可
+        !(value instanceof Array) ? (value = [value]) : null;
+        value.forEach((item, index) => {
+          // 验证item是什么类型的：如果是字符串就是创建文本节点，如果是对象，我们需要再次执行render方法，把创建的元素放到最开始创建的大盒子中
+          if (typeof item === 'string') {
+            let text = document.createTextNode(item)
+            newElement.appendChild(text)
+          } else {
+            render(item, newElement)
+          }
+        })
+        break;
+      default:
+        // 基于setAttribute 可以让设置的属性表现在html的结构上
+        newElement.setAttribute(attr, value)
+        break;
+    }
+  }
+}
+
+export {
+  createElement,
+  render
+}
+```
+
+```js
+// 测试jsx
+<h1 id='box' className='box' style={{color: 'red'}}>
+  <h2 className='title'>系统提示</h2>
+  <div className='content'>
+  	温馨提示：语法错误
+  </div>
+  	此为测试
+</h1>
+
+import React from 'react';
+import ReactDOM from 'react-dom'; // 从react-dom中导入一个ReactDOM，逗号后面的内容时把ReactDOM这个对象进行解构 <=> import {render} from 'react-dom';
+
+import {createElement, render} from './3-self-jsx-复杂'
+
+let root = document.getElementById('root');
+
+let objJSX = createElement("h1", {
+  id: "box",
+  className: "box",
+  style: {
+    color: 'red'
+  }
+}, createElement("h2", {
+  className: "title"
+}, "\u7CFB\u7EDF\u63D0\u793A"), createElement("div", {
+  className: "content"
+}, "\u6E29\u99A8\u63D0\u793A\uFF1A\u8BED\u6CD5\u9519\u8BEF"), "\u6B64\u4E3A\u6D4B\u8BD5");
+
+render(objJSX, root)
+```
+
+## react组件的基础语法
+
+1.react组件
+
+​	不管是vue还是react框架，设计之初都是期望我们按照“组件/模块管理”的方式来构建程序的，也就是把一个程序划分为一个个的组件来单独处理
+
+**优势**：1.有助于多人协作开发 2.组件复用
+
+**react中创建组件有两种方式**：1.函数声明式组件 2.基于继承Component类来创建组件
+
+声明一个函数声明式组件Dialog，src/component/Dialog.js
+
+```js
+import React from 'react' // 每一个组件中都要导入react，因为需要基于它的createEle
+/**
+ * 函数式声明组件
+ *  1.函数返回结果是一个新的jsx（也就是当前组件的jsx结构）
+ *  2.props变量存储的值是一个对象，包含了调取组件时传递的属性值(不传递是一个空对象)
+ */
+export default function Dialog(props) {
+  let {con, lx = 0} = props,
+    title = lx === 0 ? '系统提示' : '系统警告'
+  return <section>
+    <h2>{title}</h2>
+    <div>{con}</div>
+  </section>
+}
+```
+
+使用Dialog，src/index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom'; 
+import Dialog from './component/Dialog'
+
+const root = document.getElementById('root')
+
+ReactDOM.render(<div>
+  {/* 注释：jsx中调取组件，只需要把组件当做一个标签调取使用即可（单闭合和双闭合都可以） */}
+  <Dialog con='哈哈' />
+  <Dialog con='嘿嘿' lx={2}></Dialog>
+  {/* 属性值不是字符串，我们需要使用大括号包起来 */}
+</div>, root)
+```
+
+## 函数式组件的渲染机制
+
+知识点：createElement在处理时，遇到一个组件，返回返回的对象中：type就不再是字符串标签名了，而是一个函数（类），但是属性还是存在props中
+
+包裹函数式组件的jsx
+
+```jsx
+<div>
+  <Dialog con='哈哈' />
+  <Dialog con='嘿嘿' lx={2}></Dialog>
+</div>
+```
+
+babel编译成createElement
+
+```js
+React.createElement("div", null, React.createElement(Dialog, {
+  con: "\u54C8\u54C8"
+}), React.createElement(Dialog, {
+  con: "\u563F\u563F",
+  lx: 2
+}));
+```
+
+通过console.log(React.createElement(...))查看返回的对象
+
+```js
+{
+  type: Dialog,
+  props: {
+    lx: 1,
+    con: 'xxx',
+    children: 一个值或一个数组
+  }
+}
+```
+
+> render渲染时，我们需要做处理，首先判断type的类型，如果是字符串，就创建一个元素标签，如果是函数或类，就把函数执行，把props中的每一项（包含children）传递给函数
+>
+> 在执行函数时，把函数中return的jsx转换为新的对象（通过createElement），把这个对象返回；紧接着render按照以往的渲染方式，创建dom元素，插入到制定的容器中即可
+
+组件上的属性，最终都会通过props传递给组件，再在组件中使用才会生效。
+
+```js
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom'; 
+import Dialog from './component/Dialog'
+
+const root = document.getElementById('root')
+
+ReactDOM.render(<div>
+  {/* 注释：jsx中调取组件，只需要把组件当做一个标签调取使用即可（单闭合和双闭合都可以） */}
+  <Dialog con='哈哈' style={{color: 'red'}} />
+  <Dialog con='嘿嘿' lx={2}>
+    <span>1</span>
+    <span>2</span>
+  </Dialog>
+  {/* 属性值不是字符串，我们需要使用大括号包起来 */}
+</div>, root)
+```
+
+```js
+// src/component/Dialog.js
+import React from 'react' // 每一个组件中都要导入react，因为需要基于它的createEle
+/**
+ * 函数式声明组件
+ *  1.函数返回结果是一个新的jsx（也就是当前组件的jsx结构）
+ *  2.props变量存储的值是一个对象，包含了调取组件时传递的属性值(不传递是一个空对象)
+ */
+export default function Dialog(props) {
+  let {con, lx = 0, children, style} = props,
+    title = lx === 0 ? '系统提示' : '系统警告'
+    // console.log(React.Children)
+
+    // children：可能有可能没有，可能只有一个值，也可能是一个数组，可能每一项是一个字符串，也可能是一个对象等（代表双闭合组件中的子元素）
+  return <section style={style}>
+    <h2>{title}</h2>
+    <div>{con}</div>
+    {/* 把属性中传递的子元素放到组件中的指定位置 */}
+    {/* {children} */}
+    {/* 也可以基于react提供的专门遍历children的方法来完成遍历操作 */}
+    {
+      React.Children.map(children, item => item)
+    }
+  </section>
+} 
+```
+
+## 封装Dialog
+
+使用bootstrap，`yarn add bootstrap@3`
+使用面板样式， https://v3.bootcss.com/components/#panels 
 
