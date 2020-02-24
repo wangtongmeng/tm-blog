@@ -709,4 +709,87 @@ export default function Dialog(props) {
 
 使用bootstrap，`yarn add bootstrap@3`
 使用面板样式， https://v3.bootcss.com/components/#panels 
+在src/index.js中全局引入bootstrap，`import 'bootstrap/dist/css/bootstrap.css';`
 
+封装Dialog，src/component/Dialog
+
+```js
+import React from 'react'
+export default function Dialog(props) {
+  let {type, content, children} = props
+  // 处理样式
+  let objStyle = {
+    width: '50%',
+    margin: '10px auto'
+  }
+  // 类型的处理
+  let typeValue = type || '系统提示'
+  if (typeof type === 'number') {
+    switch (type) {
+      case 0:
+        typeValue = '系统提示'
+        break
+      case 1:
+        typeValue = '系统警告'
+        break
+      case 2:
+        typeValue = '系统错误'
+        break
+    }
+  }
+
+  return <section className='panel panel-default' style={objStyle}>
+    <div className="panel-heading">
+      <h3 className="panel-title">{typeValue}</h3>
+    </div>
+    <div className='panel-body'>{content}</div>
+    {/* 如果传递了children，我们把内容放到尾部中，不传递什么都不显示 */}
+    {
+      children ? <div className="panel-footer">
+        {React.Children.map(children, item=>item)}
+      </div> : null
+    }
+  </section>
+}
+```
+
+使用Dialog，src/index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom'; 
+import './static/css/reset.min.css'
+import 'bootstrap/dist/css/bootstrap.css';
+import Dialog from './component/Dialog'
+/*
+ * 1.我们一般都把程序中的公用样式放到INDEX中导入，这样在其它组件中也可以使用了（WEBPACK会把所有的组件最后都编译到一起，INDEX是主入口）
+ *
+ * 2.导入bootstrap，需要导入的是不经过压缩处理的文件，否则无法编译（真实项目中bootstrap已经是过去事，我们后期项目中使用组件都是用ANT来做）
+ */
+const root = document.getElementById('root')
+
+ReactDOM.render(<main>
+  <Dialog content='早上好' />
+  <Dialog type={2} content='快迟到了！' />
+  <Dialog type='请登录' content={
+     <div>
+       <input type="text" className="form-control" placeholder="请输入用户名" />
+        <br/>
+      <input type="password" className="form-control" placeholder="请输入密码" />
+     </div>
+    }>
+    <button className='btn btn-success'>登录</button>
+    <button className='btn btn-danger'>取消</button>
+  </Dialog>
+</main>, root)
+```
+
+## 基于类创建react组件
+
+基于继承Component类来创建组件
+
+​		基于createElement把jsx转换为一个对象，当render渲染这个对象时，遇到type是一个函数或者类，不是直接创建元素，而是先把方法执行：
+​		->如果是函数式声明的组件，就把它当做普通方法执行（方法中的this是undefined），把函数返回的jsx元素（也是解析后的对象）进行渲染
+​		->如果是类声明式的组件，会把当前类new它执行，创建类的一个实例（当前本次调取的组件就是它的实例），执行constructor之后，会执行this.render()，把render中返回的jsx拿过来渲染，所以“类声明式组件，必须有一个render的方法，方法中返回一个jsx元素”
+
+​		但是不管哪种方式，最后都会把解析出来的props属性对象作为实参传递给对应的函数或者类
