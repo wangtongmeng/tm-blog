@@ -793,3 +793,95 @@ ReactDOM.render(<main>
 ​		->如果是类声明式的组件，会把当前类new它执行，创建类的一个实例（当前本次调取的组件就是它的实例），执行constructor之后，会执行this.render()，把render中返回的jsx拿过来渲染，所以“类声明式组件，必须有一个render的方法，方法中返回一个jsx元素”
 
 ​		但是不管哪种方式，最后都会把解析出来的props属性对象作为实参传递给对应的函数或者类
+**关于constructor中的props**
+
+```js
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom'; 
+
+const root = document.getElementById('root')
+
+class Dialog extends React.Component {
+  constructor(props) { // props, context, updater
+    // props：当render渲染并且把当前类执行创建实例时，会把之前jsx解析出来的props对象（可能有children）中的信息传递给参数props => "调取组件传递的属性"
+
+    super(props) // es6中的extends继承，一旦使用了constructor，第一行位置必须设置super执行：相当于React.Component.call(this)，也就是call继承，把父类私有的属性继承过来
+      // 如果只写super()：虽然创建实例时把属性传递进来了，但是没有传递给父组件，也就是没有把属性挂载到实例上，使用this.props获取的结果是undefined
+      // 如果写super(props)：在继承父类私有属性时，就把传递的属性挂载到了子类实例上，constructor中就可以使用this.props了
+    /**
+     * this.props：属性集合
+     * this.refs：ref集合（非受控组件中用到）
+     * this.context：上下文
+     */
+    console.log(props)
+    console.log(this.props)
+  }
+
+  render() {
+    return <section>
+      <h3>系统提示</h3>
+      <div></div>
+    </section>
+  }
+}
+
+ReactDOM.render(<div>
+  <Dialog lx={2} con='哈哈哈'>
+    <span>子元素</span>
+  </Dialog>
+</div>, root)
+```
+
+**constructor之外的props**
+
+```js
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom'; 
+
+const root = document.getElementById('root')
+
+class Dialog extends React.Component {
+  constructor() { 
+    super()
+    // 即使在constructor中不设置形参props接收属性，执行super时也不传这个属性，除了constructor中不能直接使用this.props，其他声明周期函数中都可以使用（也就是执行完成constructor，react已经帮我们把传递的属性接收，并且挂在到实例上了）
+  }
+
+  componentWillMount() {
+    // 第一次渲染之前
+    console.log(this.props)
+  }
+
+  render() {
+    console.log(this.props)
+
+    return <section>
+      <h3>系统提示</h3>
+      <div></div>
+    </section>
+  }
+}
+
+ReactDOM.render(<div>
+  <Dialog lx={2} con='哈哈哈'>
+    <span>子元素</span>
+  </Dialog>
+</div>, root)
+```
+
+## 创建组件的两种方式总结
+
+总结：创建组件有两种方式，“函数式”、“创建类式”
+
+[函数式]
+	1.操作非常简单
+	2.能实现的功能也很简单，只是简单的调取和返回jsx而已
+[创建类式]
+	1.操作相对复杂一些，但是也可以实现更为复杂的业务功能
+	2.能够使用生命周期函数操作业务
+	3.函数式可以理解为静态组件（组件中的内容调取时就已经固定了，很难再修改），而类这种方式，可以基于组件内部的状态来动态更新渲染的内容。
+	4......
+
+## 组件中的属性管理
+
