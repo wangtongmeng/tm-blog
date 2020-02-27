@@ -885,3 +885,125 @@ ReactDOM.render(<div>
 
 ## 组件中的属性管理
 
+- 属性是只读的
+- 设置默认属性
+- 设置属性规则
+
+属性是只读的
+
+```js
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
+const root = document.getElementById('root')
+
+class Dialog extends React.Component {
+  // this.props是只读的，我们无法在方法中修改它的值，但是可以给其设置默认值或者设置一些规则（例如：设置是否是必须传递的以及传递值得类型等）
+  constructor() { 
+    super()
+  }
+
+  render() {
+    // this.props.con = '嘿嘿嘿' // TypeError: Cannot assign to read only property 'con' of object '#<Object>' 组件中的属性是调取组件时（创建类实例的时候）传递给组件的信息，而这部分信息是"只读的"（只能获取不能修改）=>"组件的属性是只读的"
+
+    let {lx, con} = this.props
+
+    return <section>
+      <h3>{lx}</h3>
+      <div>{con}</div>
+    </section>
+  }
+}
+
+ReactDOM.render(<div>
+  <Dialog con='哈哈哈'>
+    <span>子元素</span>
+  </Dialog>
+</div>, root)
+```
+
+设置默认属性
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
+const root = document.getElementById('root')
+
+class Dialog extends React.Component {
+  // this.props是只读的，我们无法在方法中修改它的值，但是可以给其设置默认值或者设置一些规则（例如：设置是否是必须传递的以及传递值得类型等）
+  static defaultProps = {
+    lx: '系统提示'
+  }
+
+  constructor() { 
+    super()
+
+  }
+
+  render() {
+    let {lx, con} = this.props
+
+    return <section>
+      <h3>{lx}</h3>
+      <div>{con}</div>
+    </section>
+  }
+}
+
+ReactDOM.render(<div>
+  <Dialog con='哈哈哈'>
+    <span>子元素</span>
+  </Dialog>
+</div>, root)
+```
+
+设置属性规则
+
+安装属性类型验证插件：yarn add prop-types，文档参考  https://github.com/facebook/prop-types 
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
+const root = document.getElementById('root')
+
+class Dialog extends React.Component {
+  static defaultProps = {
+    lx: '系统提示'
+  }
+  // prop-types是facebook公司开发的一个插件，基于这个插件我们可以给组件传递的属性设置规则（设置的规则不会影响页面的渲染，但是会在控制台抛出警告错误）
+  static propTypes = {
+    // con: PropTypes.string // 传递的内容需要时字符串
+    con: PropTypes.string.isRequired // 不仅传递的内容时字符串，并且必传
+  }
+
+  constructor() { 
+    super()
+
+  }
+
+  render() {
+
+    let {lx, con} = this.props
+
+    return <section>
+      <h3>{lx}</h3>
+      <div>{con}</div>
+    </section>
+  }
+}
+
+ReactDOM.render(<div>
+  <Dialog con='哈哈哈'>
+    <span>子元素</span>
+  </Dialog>
+</div>, root)
+```
+
+ES6的类和继承
+
