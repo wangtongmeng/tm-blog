@@ -1005,5 +1005,115 @@ ReactDOM.render(<div>
 </div>, root)
 ```
 
-ES6的类和继承
+## ES6的类和继承
+
+正规语法
+
+```js
+class Parent {
+  // 给实例设置私有属性
+  constructor(x, y) {
+    this.x = x
+    this.y = y
+  }
+
+  // Parent.prototype
+  render() {
+    // this.render()
+  }
+
+  // 把Parent当做一个普通对象，设置的私有方法，和实例没关系
+  static ajax() {
+    // Parent.ajax()
+  }
+}
+
+Parent.prototype.AA = 12 // ES6创建类的大括号中只能写方法（而且不能是箭头函数），不能设置属性，属性需要自己额外拿出来设置
+Parent.BB = 12 // 把它作为对象设置的私有属性也只能拿到外面设置
+
+new Parent(10, 20)
+
+//=============
+class Children extends Parent {
+  constructor() {
+    super(10, 20) // Parent.constructor.call(10, 20)
+    /**
+     *  
+        Parent.constructor(x, y) {
+          // 给实例设置私有属性
+          this.x = x
+          this.y = y
+        }
+     */
+    // this.x = 10
+    // this.y = 20
+    // this.ajax() // this.ajax is not a function 子类只能继承父类原型上的属性和方法和父类实例私有的属性和方法，对于父类作为普通对象设置的私有属性和方法是无法继承的
+
+  }
+
+  render() {
+
+  }
+}
+
+console.dir(new Children())
+/**
+ * {
+ *    x: 10,
+ *    y: 20,
+ *    __proto__: Chidren.prototype
+ *      render
+ *      __proto__: Parent.prototype
+ *        render
+ *        AA: 12
+ *        __proto__:Object.prototype
+ * }
+ */
+```
+
+react中使用类的语法
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const root = document.getElementById('root')
+
+class Dialog extends React.Component {
+  // static defaultProps 这样是不符合ES6规范的，但是webpack打包编译时会把它转换为Dialog.defaultProps这种符合规范的语法
+  static defaultProps = {
+    lx: '系统提示'
+  }
+
+  constructor() { 
+    super()
+
+    console.log(this.AA)
+    console.log(this.fn())
+  }
+
+  // 类似的这样写也是可以的（不是合法的ES6语法，但是webpack会把它编译 => babel-preset-react）
+  AA = 12
+  fn = () => {
+    console.log(1)
+  }
+
+  render() {
+    let {lx, con} = this.props
+
+    return <section>
+      <h3>{lx}</h3>
+      <div>{con}</div>
+    </section>
+  }
+}
+
+ReactDOM.render(<div>
+  <Dialog con='哈哈哈'>
+    <span>子元素</span>
+  </Dialog>
+</div>, root)
+```
+
+## 组件中的状态（数据驱动思想）
 
