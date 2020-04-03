@@ -39,6 +39,7 @@ module.exports = {
         'vue基础',
       ],
     },
+    lastUpdated: '更新时间'
   },
   configureWebpack: {
     resolve: {
