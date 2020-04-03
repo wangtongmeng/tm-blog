@@ -1,4 +1,5 @@
 module.exports = {
+  base: '/tm-blog/',
   themeConfig: {
     logo: '/assets/img/hero.png',
     nav: [{
