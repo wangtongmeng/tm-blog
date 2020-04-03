@@ -1,14 +1,12 @@
 module.exports = {
-  title: 'tm wang 的笔记',
-  description: 'Just playing around',
-  base: '/tm-blog/',
   themeConfig: {
+    logo: '/assets/img/hero.png',
     nav: [{
         text: '首页',
         link: '/'
       },
       {
-        text: '前端笔记',
+        text: '前端',
         items: [{
           text: 'css',
           link: '/css/'
@@ -22,20 +20,23 @@ module.exports = {
       },
       {
         text: '关于我',
-        link: '/about/'
+        link: '/about'
       },
     ],
-    sidebar: [
-      '/',
-      ['/css/', 'css'],
-      ['/javascript/', 'javascript'] // 第二个参数是别名
-    ],
-    sidebarDepth: 2,
-    displayAllHeaders: true, // 显示所有页面的标题链接
-    lastUpdated: 'Last Updated'
+    sidebar: {
+      '/javascript/': [
+        '',
+        'js基础'
+      ],
+      '/css/': [
+        '',
+        '布局',
+        '常用技巧'
+      ],
+      '/vue/': [
+        '',
+        'vue基础',
+      ],
+    },
   },
-  markdown: {
-    lineNumbers: true
-  },
-  // plugins: ['autobar']
 }
