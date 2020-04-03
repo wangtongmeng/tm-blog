@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>dom</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/tm-blog/assets/css/0.styles.c3381eff.css" as="style"><link rel="preload" href="/tm-blog/assets/js/app.4efe736a.js" as="script"><link rel="preload" href="/tm-blog/assets/js/2.fa0f5da0.js" as="script"><link rel="preload" href="/tm-blog/assets/js/11.c8c759eb.js" as="script"><link rel="prefetch" href="/tm-blog/assets/js/10.c0ce910b.js"><link rel="prefetch" href="/tm-blog/assets/js/12.c3565bd5.js"><link rel="prefetch" href="/tm-blog/assets/js/13.eb10990d.js"><link rel="prefetch" href="/tm-blog/assets/js/14.c1ea114b.js"><link rel="prefetch" href="/tm-blog/assets/js/15.250b8ddf.js"><link rel="prefetch" href="/tm-blog/assets/js/16.3cbf59f7.js"><link rel="prefetch" href="/tm-blog/assets/js/17.bade6df3.js"><link rel="prefetch" href="/tm-blog/assets/js/18.1f5e4232.js"><link rel="prefetch" href="/tm-blog/assets/js/19.d87463ce.js"><link rel="prefetch" href="/tm-blog/assets/js/20.65c81a70.js"><link rel="prefetch" href="/tm-blog/assets/js/21.0660ae70.js"><link rel="prefetch" href="/tm-blog/assets/js/22.d555ab24.js"><link rel="prefetch" href="/tm-blog/assets/js/23.790bb5dc.js"><link rel="prefetch" href="/tm-blog/assets/js/24.ab9eadca.js"><link rel="prefetch" href="/tm-blog/assets/js/3.5b64e6b4.js"><link rel="prefetch" href="/tm-blog/assets/js/4.3cd37608.js"><link rel="prefetch" href="/tm-blog/assets/js/5.2ece5f10.js"><link rel="prefetch" href="/tm-blog/assets/js/6.34f53269.js"><link rel="prefetch" href="/tm-blog/assets/js/7.43432901.js"><link rel="prefetch" href="/tm-blog/assets/js/8.fbfe51ea.js"><link rel="prefetch" href="/tm-blog/assets/js/9.1d885588.js">
+    <link rel="stylesheet" href="/tm-blog/assets/css/0.styles.c3381eff.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/tm-blog/" class="home-link router-link-active"><img src="/tm-blog/assets/img/hero.png" alt="" class="logo"> <!----></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/tm-blog/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tm-blog/css/" class="nav-link">css</a></li><li class="dropdown-item"><!----> <a href="/tm-blog/javascript/" class="nav-link router-link-active">javascript</a></li><li class="dropdown-item"><!----> <a href="/tm-blog/vue/" class="nav-link">vue</a></li></ul></div></div><div class="nav-item"><a href="/tm-blog/about.html" class="nav-link">关于我</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/tm-blog/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tm-blog/css/" class="nav-link">css</a></li><li class="dropdown-item"><!----> <a href="/tm-blog/javascript/" class="nav-link router-link-active">javascript</a></li><li class="dropdown-item"><!----> <a href="/tm-blog/vue/" class="nav-link">vue</a></li></ul></div></div><div class="nav-item"><a href="/tm-blog/about.html" class="nav-link">关于我</a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/tm-blog/javascript/" class="sidebar-link">javascript 笔记</a></li><li><a href="/tm-blog/javascript/js基础.html" class="sidebar-link">js基础</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="dom"><a href="#dom" class="header-anchor">#</a> dom</h1> <h2 id="操作dom的属性和方法"><a href="#操作dom的属性和方法" class="header-anchor">#</a> 操作DOM的属性和方法</h2> <ul><li>获取元素或元素集合</li> <li>描述节点和节点之间的属性</li> <li>动态操作DOM</li> <li>零散的</li></ul> <h3 id="获取元素或元素集合"><a href="#获取元素或元素集合" class="header-anchor">#</a> 获取元素或元素集合</h3> <p>getElementById</p> <ul><li>上下文只能是document（只有document这个实例的原型链上才能找到这个方法，其它实例都找不到）</li> <li>ID重复了获取第一个</li> <li>E6~7中会把表单元素的name当做id使用
+getElementsByTagName</li> <li>获取当前上下文中，所有子子孙孙中标签名叫做XXX的元素
+getElementsByClassName</li> <li>E6~8中不兼容
+getElementsByName</li> <li>在IE浏览器中只对表单元素的name起作用</li> <li>上下文也只能是document
+querySelector
+querySelectorAll</li> <li>不兼容IE6~8</li> <li>没有DOM映射
+document.documentElement
+document.body
+document.head</li></ul> <h3 id="描述节点和节点之间的属性"><a href="#描述节点和节点之间的属性" class="header-anchor">#</a> 描述节点和节点之间的属性</h3> <table><thead><tr><th></th> <th>nodeType</th> <th>nodeName</th> <th>nodeValue</th></tr></thead> <tbody><tr><td>元素节点</td> <td>1</td> <td>大写标签名</td> <td>null</td></tr> <tr><td>文本节点</td> <td>3</td> <td>#text</td> <td>文本内容</td></tr> <tr><td>注释节点</td> <td>8</td> <td>#comment</td> <td>注释内容</td></tr> <tr><td>文档节点</td> <td>9</td> <td>#document</td> <td>null</td></tr></tbody></table> <p>childNodes：所有子节点
+children：所有元素子节点（IE6~8中会把注释当做元素节点）
+parentNode
+previousSibling / previousElementSibling
+nextSibling
+firstChild
+lastChild</p> <h3 id="动态操作dom"><a href="#动态操作dom" class="header-anchor">#</a> 动态操作DOM</h3> <p>createElement
+createDocumentFragment
+appendChild
+insertBefore
+cloneNode(true/false)
+removeChild
+set/get/removeAttribute</p> <h3 id="零散的"><a href="#零散的" class="header-anchor">#</a> 零散的</h3> <p>xxx.style.xxx = xxx 设置行内样式
+=&gt;xxx.style.xxx 获取行内样式
+xxx.className = 'xxx'
+xxx.onclick = function...</p> <h2 id="js盒子模型"><a href="#js盒子模型" class="header-anchor">#</a> JS盒子模型</h2> <h3 id="_13个属性"><a href="#_13个属性" class="header-anchor">#</a> 13个属性</h3> <p>在JS中通过相关的属性可以获取(设置)元素的样式信息,这些属性就是盒子模型属性（基本上都是有关于样式的）。
+client=&gt;top/left/width/height
+offset=&gt;top/left/width/height/<strong>parent</strong>
+scroll=&gt;top/left/width/height
+1.<code>clientWidth</code> &amp; <code>clientHeight</code>：获取当前元素可视区域的宽高（内容的宽高+左右/上下padding）
+=&gt;和内容是否有溢出无关（和是否设置了<code>overflow: hidden</code>也无关），就是我们自己设定的内容的宽高+padding
+=&gt;获取当前页面一屏幕(可视区域)的宽度和高度</p> <div class="language-js extra-class"><pre class="language-js"><code>document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>clientWidth <span class="token operator">||</span> document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>clientWidth <span class="token comment">// 兼容</span>
+document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>clientHeight <span class="token operator">||</span> document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>clientHeight <span class="token comment">// 兼容</span>
+</code></pre></div><p>2.<code>clientTop</code>&amp; <code>clientLeft</code>：获取(上/左)边框的宽度
+3.<code>offsetWidth</code> &amp; <code>offsetHeight</code>：在client的基础上加上border（和内容是否溢出也没有关系）
+4.<code>scrollWidth</code> &amp; <code>scrollHeight</code>：真实内容的宽高（不一定是自己设定的值，因为可能会存在内容溢出，有内容溢出的情况下，需要把溢出的内容也算上）+ 左/上padding，而且是一个约等于的值 （没有内容溢出和client一样）
+=&gt;在不同浏览器中，或者是否设置了<code>overflow: hidden</code>都会对最后的结果产生影响，所以这个值仅仅做参考，属于约等于的值
+=&gt;获取当前页面的真实宽高（包含溢出的部分）</p> <div class="language-js extra-class"><pre class="language-js"><code>document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>scrollWidth <span class="token operator">||</span> document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>scrollWidth
+document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>scrollHeight <span class="token operator">||</span> document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>scrollHeight
+</code></pre></div><p>5.<code>offsetParent</code>：当前盒子的父级参照物。<code>offsetTop</code> / <code>offsetLeft</code>：获取当前盒子距离其父级参照物的偏移量(上偏移/左偏移) 当前盒子的外边框开始~父级参照物的内边框</p> <p>=&gt;“参照物”：同一个平面中，元素的父级参照物和结构没有必然联系，默认他们的父级参照物都是body（当前平面最外层的盒子） body的父级参照物是null</p> <div class="language-js extra-class"><pre class="language-js"><code>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>center<span class="token punctuation">.</span>offsetParent<span class="token punctuation">)</span> <span class="token comment">// body</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>inner<span class="token punctuation">.</span>offsetParent<span class="token punctuation">)</span>  <span class="token comment">// body</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>outer<span class="token punctuation">.</span>offsetParent<span class="token punctuation">)</span>  <span class="token comment">// body</span>
+</code></pre></div><p>=&gt;“参照物可以改变”：构建出不同的平面即可（使用zIndex，但是这个属性只对定位有作用），所以改变元素的定位(position:relative/absolute/fixed)可以改变其父级参照物</p> <div class="language-js extra-class"><pre class="language-js"><code>utils<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span>outer<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  position<span class="token punctuation">:</span> <span class="token string">'relative'</span> <span class="token comment">//=&gt;把outer脱离原有的平面，独立出一个新的平面，后代元素的父级参照物都会以它为参考</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>center<span class="token punctuation">.</span>offsetParent<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// outer</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>inner<span class="token punctuation">.</span>offsetParent<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// outer</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>outer<span class="token punctuation">.</span>offsetParent<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// body</span>
+utils<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span>inner<span class="token punctuation">,</span> <span class="token punctuation">{</span>position<span class="token punctuation">:</span> <span class="token string">'absolute'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>center<span class="token punctuation">.</span>offsetParent<span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">// inner</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>inner<span class="token punctuation">.</span>offsetParent<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// outer</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>outer<span class="token punctuation">.</span>offsetParent<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// body</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>offsetParent<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// null</span>
+</code></pre></div><p>封装获取当前元素距离body的偏移</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// offset：获取当前元素距离body的偏移(左偏移和上偏移)</span>
+<span class="token keyword">let</span> <span class="token function-variable function">offset</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">curEle</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 1.先获取当前元素本身的左/上偏移</span>
+  <span class="token keyword">let</span> curLeft <span class="token operator">=</span> curEle<span class="token punctuation">.</span>offsetLeft<span class="token punctuation">,</span>
+      curTop <span class="token operator">=</span> curEle<span class="token punctuation">.</span>offsetTop<span class="token punctuation">,</span>
+      p <span class="token operator">=</span> curEle<span class="token punctuation">.</span>offsetParent<span class="token punctuation">;</span>
+
+  <span class="token comment">// 2.累加父参照物的边框和偏移(一直向上找,找到BODY为止,每当找到一个父参照物都把它的边框和偏移累加起来,根据元素不一样,具体找几次也不知道)</span>
+  <span class="token comment">// tageName获取当前元素的标签名(大写的)</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>p<span class="token punctuation">.</span>tagName <span class="token operator">!==</span> <span class="token string">'BODY'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//=&gt;当找到的父参照物是BODY结束查找和累加操作</span>
+    <span class="token comment">//3.把找到的父参照物的边框和偏移值累加起来</span>
+    curLeft <span class="token operator">+=</span> p<span class="token punctuation">.</span>clientLeft<span class="token punctuation">;</span>
+    curLeft <span class="token operator">+=</span> p<span class="token punctuation">.</span>offsetLeft<span class="token punctuation">;</span>
+    curTop <span class="token operator">+=</span> p<span class="token punctuation">.</span>clientTop<span class="token punctuation">;</span>
+    curTop <span class="token operator">+=</span> p<span class="token punctuation">.</span>offsetTop<span class="token punctuation">;</span>
+    p <span class="token operator">=</span> p<span class="token punctuation">.</span>offsetParent<span class="token punctuation">;</span><span class="token comment">//=&gt;基于当前找到的父参照物继续向上查找</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    top<span class="token punctuation">:</span> curTop<span class="token punctuation">,</span>
+    left<span class="token punctuation">:</span> curLeft
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>6.<code>scrollTop</code> / <code>scrollLeft</code>：滚动条卷去的宽度或者高度
+最小卷去值：0
+最大卷去值：真实页面的高度 - 一屏幕的高度</p> <div class="language-js extra-class"><pre class="language-js"><code>document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>scrollHeight<span class="token operator">-</span>document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>clientHeight
+</code></pre></div><p>在JS盒子模型13个属性中，只有scrollTop/scrollLeft是“可读写”属性，其余都是“只读”属性
+操作浏览器的盒子模型属性，我们一般都要写两套，用来兼容各种模式下的浏览器</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 操作浏览器盒子模型属性的</span>
+<span class="token keyword">let</span> <span class="token function-variable function">winHandle</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">attr<span class="token punctuation">,</span> value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> value <span class="token operator">!==</span> <span class="token string">'undefined'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//=&gt;设置盒子模型属性值:SCROLL-TOP/LEFT</span>
+    document<span class="token punctuation">.</span>documentElement<span class="token punctuation">[</span>attr<span class="token punctuation">]</span> <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    document<span class="token punctuation">.</span>body<span class="token punctuation">[</span>attr<span class="token punctuation">]</span> <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> document<span class="token punctuation">.</span>documentElement<span class="token punctuation">[</span>attr<span class="token punctuation">]</span> <span class="token operator">||</span> document<span class="token punctuation">.</span>body<span class="token punctuation">[</span>attr<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="通过js盒模型属性获取值的特点"><a href="#通过js盒模型属性获取值的特点" class="header-anchor">#</a> 通过JS盒模型属性获取值的特点</h3> <p>1.获取的都是数字不带单位
+2.获取的都是整数，不会出现小数（一般都会四舍五入，尤其是获取的 偏移量）
+3.获取的结果都是复合样式值（好几个元素的样式组合在一起的值），如果只想获取单一样式值（例如：只想获取PADDING），我们的盒子模型属性就操作不了了（这不能说没有用，真实项目中，有时候我们就是需要获取组合的值来完成一些操作）</p> <h2 id="获取元素具体的某个样式值"><a href="#获取元素具体的某个样式值" class="header-anchor">#</a> 获取元素具体的某个样式值</h2> <p>1.[元素].style.xxx 操作获取
+只能获取所有写在元素行内上的样式(不写在行内上,不管你写没写都获取不到,真实项目中我们很少会把样式写在行内上)
+=&gt;outer.style.width =&gt;'' (width是写在样式表中的)
+2.获取当前元素所有经过浏览器计算的样式
+经过计算的样式：只要当前元素可以在页面中呈现（或者浏览器渲染它了），那么它的样式都是被计算过的
+=&gt;不管当前样式写在哪
+=&gt;不管你是否写了(浏览器会给元素设置一些默认样式)
+标准浏览器(IE9+)
+window.getComputedStyle([元素],[伪类,一般都写null]) 获取到当前元素所有被浏览器计算过的样式(对象)
+IE6~8
+[元素].currentStyle 获取经过计算的样式</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">let</span> <span class="token function-variable function">getCss</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">curEle<span class="token punctuation">,</span> attr</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">'getComputedStyle'</span> <span class="token keyword">in</span> window<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> val <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">getComputedStyle</span><span class="token punctuation">(</span>curEle<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">[</span>attr<span class="token punctuation">]</span>
+    <span class="token comment">// 把获取的结果去除单位（不是所有的值都能去单位的，例如：display\一些复合值都去不掉单位），只有符合 数字+单位 这种模式的结果才能基于parseFloat去单位</span>
+    <span class="token keyword">let</span> reg <span class="token operator">=</span> <span class="token regex">/^-?\d+(\.\d+)?(px|rem|em|pt)?$/i</span><span class="token punctuation">;</span>
+    reg<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">?</span> val <span class="token operator">=</span> <span class="token function">parseFloat</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> val<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// throw new SyntaxError：抛出一个错误(语法错误),让浏览器崩溃,不在继续执行JS</span>
+  <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">SyntaxError</span><span class="token punctuation">(</span><span class="token string">'您的浏览器版本过低，请升级到最新版本，谢谢配合！！'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// test</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">getCss</span><span class="token punctuation">(</span>outer<span class="token punctuation">,</span> <span class="token string">'width'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/tm-blog/assets/js/app.4efe736a.js" defer></script><script src="/tm-blog/assets/js/2.fa0f5da0.js" defer></script><script src="/tm-blog/assets/js/11.c8c759eb.js" defer></script>
+  </body>
+</html>
