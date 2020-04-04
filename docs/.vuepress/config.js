@@ -17,8 +17,18 @@ module.exports = {
         }, {
           text: 'vue',
           link: '/vue/'
+        }, {
+          text: 'webpack',
+          link: '/webpack/'
         }]
       },
+      // {
+      //   text: '开发工具',
+      //   items: [{
+      //     text: 'Git',
+      //     link: 
+      //   }]
+      // },
       {
         text: '关于我',
         link: '/about'
@@ -38,6 +48,10 @@ module.exports = {
         '',
         'vue基础',
       ],
+      '/webpack/': [
+        '',
+        'webpack4学习'
+      ]
     },
     lastUpdated: '更新时间'
   },
