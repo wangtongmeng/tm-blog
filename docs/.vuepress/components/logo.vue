@@ -25,7 +25,7 @@ export default {};
   display: inline-block;
   width: 55px;
   height: 55px;
-  background: url("/assets/img/mi-logo.png") no-repeat center;
+  background: url("../public/assets/img/mi-logo.png") no-repeat center;
   background-size: 55px;
   transition: margin 0.2s;
 }
@@ -34,7 +34,7 @@ export default {};
   display: inline-block;
   width: 55px;
   height: 55px;
-  background: url("/assets/img/mi-home.png") no-repeat center;
+  background: url("../public/assets/img/mi-home.png") no-repeat center;
   background-size: 55px;
 }
 .header-logo a:hover:before {
