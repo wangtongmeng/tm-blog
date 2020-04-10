@@ -61,17 +61,5 @@ module.exports = {
         '@img': '/img'
       }
     }
-  },
-  plugins: [
-    [
-      '@vuepress/last-updated',
-      {
-        transformer: (timestamp, lang) => {
-          const moment = require('moment')
-          moment.locale('zh-cn')
-          return moment(timestamp).fromNow()
-        }
-      }
-    ]
-  ]
+  }
 }
