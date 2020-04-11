@@ -90,3 +90,61 @@ B.prototype.getY = function getY() {
 let b = new B
 ```
 <img :src="$withBase('/assets/img/js/继承-原型继承.png')" alt="继承-原型继承">
+
+### 方案二：call继承
+
+call继承：把父类当做普通函数执行，让其执行时方法中的this变为子类的实例即可。
+
+【特点】
+
+1. 只能继承父类中的私有方法（继承的私有属性赋值给实例的私有属性） ，而且是类似拷贝过来一份，而不是链式查找。
+2. 因为只是父类当做普通的方法执行，所以父类原型上的共有属性方法无法被继承过来。
+```js
+function A() {
+  this.x = 100
+}
+A.prototype.getX = function getX() {
+  console.log(this.x)
+}
+
+function B() {
+  //CALL继承
+  A.call(this) // this.x = 100;  b.x=100;
+  this.y = 200
+}
+B.prototype.getY = function getY() {
+  console.log(this.y)
+};
+let b = new B
+console.log(b)
+```
+
+## 方案三： 寄生组合继承
+
+寄生组合继承：call继承+变异版的原型继承共同完成的。
+
+- call继承实现：私有到私有。
+- 原型继承实现：公有到公有。
+
+由于本质上还是基于原型集成，所以原型继承的缺点它也具备。
+```js
+function A() {
+  this.x = 100
+}
+A.prototype.getX = function getX() {
+  console.log(this.x)
+}
+function B() {
+  A.call(this)
+  this.y = 200
+}
+// Object.create(obj) 创建一个空对象，让其__proto__指向obj（把obj作为对象的原型）
+B.protoype = Object.create(A.prototype)
+B.prototype.constructor = B
+B.prototype.getY = function getY() {
+  console.log(this.y)
+}
+let b = new B
+console.log(b)
+```
+<img :src="$withBase('/assets/img/js/继承-寄生组合继承.png')" alt="继承-寄生组合继承">
