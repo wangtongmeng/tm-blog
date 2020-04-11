@@ -65,10 +65,27 @@ fn(10)
 ### 方案一：原型继承
 
 原型继承：子类的原型指向父类的一个实例（B子类 => A父类）
+原型继承特点：
+1. 并不会把父类中的方法克隆一份给子类，而是建立了子类和父类之间的原型查找机制。
+2. 重定向子类的原型后，默认丢失了原本的constructor属性（或者原本的原型上设置的属性和方法）。
+3. 子类或子类的实例，可以基于原型链"肆意"修改父类上的方法，**对父类造成一些"不必要的破坏"**。
+4. 会把父类中私有的属性方法作为子类的公有的属性方法继承过来（父类中不管是公有还是私有，最后都变成子类公有的）。
 
 ```js
-function A () {
-  
+function A() {
+  this.x = 100
 }
-```
+A.prototype.getX = function getX() {
+  console.log(this.x)
+}
 
+function B() {
+  this.y = 200
+}
+B.prototype = new A
+B.prototype.getY = function getY() {
+  console.log(this.y)
+}
+let b = new B
+```
+<img :src="$withBase('/assets/img/js/继承-原型继承.png')" alt="继承-原型继承">
