@@ -126,7 +126,7 @@ console.log(b)
 - call继承实现：私有到私有。
 - 原型继承实现：公有到公有。
 
-由于本质上还是基于原型集成，所以原型继承的缺点它也具备。
+由于本质上还是基于原型继承，所以原型继承的缺点它也具备。
 ```js
 function A() {
   this.x = 100
@@ -148,3 +148,76 @@ let b = new B
 console.log(b)
 ```
 <img :src="$withBase('/assets/img/js/继承-寄生组合继承.png')" alt="继承-寄生组合继承">
+
+### 方案四：class实现继承
+
+ ES6创建类用class 
+ ```js
+class A {
+  constructor() {
+    this.x = 100
+  }
+  getX() {
+    console.log(this.x)
+  }
+}
+// extends继承和寄生组合继承基本类似
+class B extends A {
+  constructor() {
+    super(100) // 一但使用extends实现继承，只要自己写了constructor，就必须写super  <=> A.call(this,100)
+    this.y = 200
+  }
+  getY() {
+    console.log(this.y)
+  }
+}
+
+let b = new B
+console.log(b)
+```
+ES7中设置私有属性的方式
+```js
+class A {
+  constructor() {
+    this.x = 1000
+  }
+  // 这样和构造函数中的this.xxx=xxx没啥区别，设置的是私有属性（ES7）
+  num = 100
+  // 设置到A.prototype上的方法
+  getX() {
+    console.log(this.x)
+  }
+  // 把A当做普通对象设置的属性和方法
+  static n = 200
+  static getN() {}
+}
+console.log(new A)
+console.log(A.n, A.getN)
+```
+
+## JS中数据类型检测的四种方案
+
+- typeof
+- instanceof
+- constructor
+- Object.prototype.toString.call
+
+### 检测数据类型1：typeof
+返回结果都是字符串，字符串中包含了对应的数据类型"number"/"string"/"boolean"/"undefined"/"symbol"/"object"/"function"
+
+【局限性】
+- typeof null => "object"   null不是对象，它是空对象指针
+- 检测数据或者正则等特殊的对象，返回结果都是"object"，所以无法基于typeof判断是数据还是正则
+```js
+console.log(typeof 1) // "number"
+console.log(typeof '1') // "string"
+console.log(typeof true) // "boolean"
+console.log(typeof undefined) // "undefined"
+console.log(typeof null) // "object"
+console.log(typeof Symbol()) // "symbol"
+
+console.log(typeof []) // "object"
+console.log(typeof {}) // "object"
+console.log(typeof /a/) // "object"
+console.log(typeof function () {}) // "function"
+```
