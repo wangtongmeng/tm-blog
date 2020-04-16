@@ -174,7 +174,7 @@ class B extends A {
 
 let b = new B
 console.log(b)
-```
+ ```
 ES7中设置私有属性的方式
 ```js
 class A {
@@ -221,3 +221,59 @@ console.log(typeof {}) // "object"
 console.log(typeof /a/) // "object"
 console.log(typeof function () {}) // "function"
 ```
+
+### 检测类型2/3：instanceof / constructor
+
+监测某个实例是否属于这个类。检测底层机制：所有出现在其原型链上的类，检测结果都是true。
+【局限性】
+
+- 由于可以基于__proto__或prototype改动原型链的动向，所以基于instanceof检测出来的结果并不一定是准确的。
+- 基本数据类型的值，连对象都不是，更没有__proto__，虽说也是所属类的实例，在js中也可以调取所属类原型上的方法，，但是instanceof是不认的。
+
+instanceof的简单使用
+```js
+console.log(12 instanceof Number) // false
+console.log(new Number(12) instanceof Number) // true
+console.log(/^$/ instanceof RegExp) // true
+console.log([] instanceof Array) // true
+console.log([] instanceof Object) // true
+
+let arr = []
+arr.__proto__ = Object.prototype
+console.log(arr instanceof Array) / false
+
+function Fn() {}
+Fn.prototype.__proto__ = Array.prototype
+let f = new Fn() // 原型链：f -> Fn.prototype -> Array.prototype -> Object.prototype
+```
+constructor的简单使用
+```js
+let arr = []
+console.log(arr.constructor === Array) // true
+let n = 12
+console.log(n.constructor === Number) // true
+
+Array.prototype.constructor = null
+console.log(arr.constructor === Array) // false
+```
+### 检测数据类型4：Object.prototype.toString.call([value]) / ({}).toString.call([value])
+
+不是用来转换为字符串的，而是返回当前实例所属类的信息
+
+格式："[object 所属类信息]"
+
+"[object Object/Array/RegExp/Date/Function/Null/Undefined/Number/String/Boolean/Symbol...]"
+
+这种方式基本上没有什么局限性，是检测数据类型最准确的方式
+
+Number/String/Boolean/Symbol他们的原型上都有:
+- toString：转化为字符串
+- valueOf：返回原始值
+
+Array/RegExp/Function等内置类的原型上都有:
+- toString：转化为字符串
+
+Object的原型上:
+- toString：返回当前实例所属类的信息
+- valueOf：返回原始值
+
