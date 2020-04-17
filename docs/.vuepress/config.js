@@ -88,11 +88,11 @@ module.exports = {
       {
         title: 'webpack',
         path: '/webpack/',
-        collapsable: false,
+        collapsable: true,
         sidebarDepth: 4,
         children: [
           'webpack/',
-          'webpack/webpack学习'
+          'webpack/webpack4学习'
         ]
       },
     ],
