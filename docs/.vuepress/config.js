@@ -15,6 +15,9 @@ module.exports = {
           text: 'javascript',
           link: '/javascript/'
         }, {
+          text: 'typescript',
+          link: '/typescript/'
+        }, {
           text: 'vue',
           link: '/vue/'
         }, {
@@ -34,25 +37,65 @@ module.exports = {
         link: '/about'
       },
     ],
-    sidebar: {
-      '/javascript/': [
-        '',
-        'js基础'
-      ],
-      '/css/': [
-        '',
-        '布局',
-        '常用技巧'
-      ],
-      '/vue/': [
-        '',
-        'vue基础',
-      ],
-      '/webpack/': [
-        '',
-        'webpack4学习'
-      ]
-    },
+    sidebar: [
+      {
+        title: '首页',
+        path: '/',
+        collapsable: true,
+        sidebarDepth: 4
+      },
+      {
+        title: 'css',
+        path: '/css/',
+        collapsable: true,
+        sidebarDepth: 4,
+        children: [
+          'css/',
+          'css/布局',
+          'css/常用技巧'
+        ]
+      },
+      {
+        title: 'javascript',
+        path: '/javascript/',
+        collapsable: true,
+        sidebarDepth: 4,
+        children: [
+          'javascript/',
+          'javascript/js基础'
+        ]
+      },
+      {
+        title: 'typescript',
+        path: '/typescript/',
+        collapsable: true,
+        sidebarDepth: 4,
+        children: [
+          'typescript/',
+          'typescript/ts学习'
+        ]
+      },
+      {
+        title: 'vue',
+        path: '/vue/',
+        collapsable: true,
+        sidebarDepth: 4,
+        children: [
+          'vue/',
+          'vue/vue基础'
+        ]
+      },
+      {
+        title: 'webpack',
+        path: '/webpack/',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: [
+          'webpack/',
+          'webpack/webpack学习'
+        ]
+      },
+    ],
     lastUpdated: '更新时间'
   },
   configureWebpack: {
