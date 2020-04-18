@@ -49,17 +49,22 @@ tslint 是对ts进行代码检查的依赖。
 
 typescript依赖安装完后，可以使用tsc命令。
 ### 使用tsc初始化配置
-初始化ts配置，`tsc --init`，在根目录生成了tsconfig.json文件，其中是可以写注释的，因为ts1.8版本对齐进行了支持。
+初始化ts配置，`tsc --init`，在根目录生成了tsconfig.json文件，其中是可以写注释的，因为ts1.8版本对其进行了支持。
 ### 配置webpack
+
+创建入口文件，./src/index.ts
+
+创建模板文件，./src/template/index.html
+
+安装webpack开发依赖，`npm install webpack webpack-cli webpack-dev-server -D` 
+
+安装loader，`npm install ts-loader -D`
+
+安装plugins插件，`npm install clean-webpack-plugin html-webpack-plugin -D`
+
+安装项目依赖， `npm install typescript`
+
 创建webpack配置文件，build/webpack.config.js
-
-安装开发依赖，`npm install webpack webpack-cli webpack-dev-server -D` 
-
-安装插件，`npm install clean-webpack-plugin html-webpack-plugin -D`
-
-安装 ts-loader，`npm install ts-loader -D`
-
-安装项目依赖typescript， `npm install typescript`
 ```js
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
