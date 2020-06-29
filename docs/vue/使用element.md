@@ -207,3 +207,19 @@ rules: {
   </el-cascader>
 </div
 ```
+
+## drawer
+改变标题样式
+```css
+/* cover_styles.css */
+.el-drawer__header {
+  font-size: 20px;
+}
+```
+body垂直方向超出滚动，并预留按钮空间
+```css
+.el-drawer__body {
+  overflow-y: scroll;
+  margin-bottom: 50px;
+}
+```
