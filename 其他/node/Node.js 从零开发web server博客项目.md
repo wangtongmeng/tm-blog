@@ -21,11 +21,11 @@
 
 ### 知识点介绍
 
-![1578096228712](../../img/1578096228712.png)
+![1578096228712](~@img/1578096228712.png)
 
 ### 案例架构图
 
-![1578096288680](../../img/1578096288680.png)
+![1578096288680](~@img/1578096288680.png)
 
 ### 课程安排
 
@@ -422,6 +422,7 @@ server.listen(8000)
 ```
 
 ### 4-4 处理http请求的综合示例
+<<<<<<< HEAD:docs/node/Node.js 从零开发web server博客项目.md
 
 ```js
 const http = require('http')
@@ -468,6 +469,8 @@ const server = http.createServer((req, res) => {
 server.listen(8000)
 console.log('server is running on 8000')
 ```
+=======
+>>>>>>> da02d5cd936b3a800eb50768795c4f22ed49c7f3:其他/node/Node.js 从零开发web server博客项目.md
 
 ### 4-5 搭建开发环境
 
@@ -477,9 +480,19 @@ console.log('server is running on 8000')
 
 ### 4-6 初始化路由
 
+<<<<<<< HEAD:docs/node/Node.js 从零开发web server博客项目.md
 - 初始化路由：根据之前技术方案的设计，做出路由
 - 返回假数据：将路由和数据处理分离，以符合设计原则
 
+=======
+开发接口
+
+- 初始化路由：根据之前的技术方案的设计，做出路由
+- 返回假数据：将路由和数据处理分离，以符合设计原则
+
+接口设计之前的图
+
+>>>>>>> da02d5cd936b3a800eb50768795c4f22ed49c7f3:其他/node/Node.js 从零开发web server博客项目.md
 ### 4-7 开发路由（博客列表路由）_1
 ### 4-8 开发路由（博客详情路由）
 ### 4-9 开发路由（处理 POSTData）

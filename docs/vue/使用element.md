@@ -4,27 +4,25 @@
 
 ### 根据单元格对应数据设置不同单元格的样式
 
-```js
+``` js
 // 后端响应数据
-data: [
-  {
+data: [{
     name: '数据1',
     color: 'red',
     isValid: 1 // 1 不合法 0 合法
-  }
-]
+}]
 // table 数据
-tableData: [
-  {
+tableData: [{
     data: 'data,red,1'
-  }
-]
-const tableData = data.map(item => ({data: `${item.name},${item.color},${item.isValid}`)})
+}]
+const tableData = data.map(item => ({
+        data: `${item.name},${item.color},${item.isValid}` )
+})
 ```
 
 通过**字符串拼接**结合**table自定义模板**来做
 
-```vue
+``` vue
 <el-table-column label="data" width="180">
   <template slot-scope="scope">
  		<div v-if="scope.row.data.split(',')[2] == '1'" :style="{color: scope.row.data.split(',')[1]}">
@@ -40,9 +38,57 @@ const tableData = data.map(item => ({data: `${item.name},${item.color},${item.is
 
  如果需要改变宽度的话，就需要修改tooltip的样式，如下 ：
 
-```css
+``` css
 .el-tooltip__popper {
-  max-width: 90% !important;
+    max-width: 90% !important;
+}
+```
+
+### table表格错位的问题
+
+* 再次请求数据，表头和表体错位
+* 打开控制台，所有移动改变页面宽度，表头或表体错位
+* 通过拖拽改变表头宽度，引起的错位
+
+表头错位的解决方案
+
+``` css
+/* cover_style.css */
+body .el-table th.gutter {
+    display: table-cell !important;
+}
+
+body .el-table colgroup.gutter {
+    display: table-cell !important;
+}
+```
+```js
+// main.sj
+import '@/styles/cover_style.css'
+```
+
+表头拖拉错位、再次请求数据错位 通过header-dragend事件和doLayout方法，重新渲染table
+```html
+<el-table ref='table' @header-dragend='handleHeaderDrag'>
+</el-table>
+```
+
+```js
+export default {
+  methods: {
+    getData () {
+      //...
+      this.doTableLayout()
+    },
+    doTableLayout () {
+      this.$nextTick(() => {
+        this.$refs.table.doLayout()
+      })
+    },
+    handleHeaderDrag () {
+      this.doTableLayout()
+    }
+  }
 }
 ```
 
@@ -52,7 +98,7 @@ const tableData = data.map(item => ({data: `${item.name},${item.color},${item.is
 
 不显示代码
 
-```vue
+``` vue
 <el-tabs v-model="activeName" value="" @tab-click="handleClick">
 	<el-tab-pane label="用户" name="user">用户</el-tab-pane>
 	<el-tab-pane label="服务人员" name="servicer">服务人员</el-tab-pane>
@@ -62,7 +108,7 @@ const tableData = data.map(item => ({data: `${item.name},${item.color},${item.is
 
 设置 el-tabs 的 v-model，并给 el-tab-pane 加上 lazy 属性
 
-```vue
+``` vue
 <el-tabs v-model="activeName" value="" @tab-click="handleClick">
 	<el-tab-pane label="用户" name="user" lazy>用户</el-tab-pane>
 	<el-tab-pane label="服务人员" name="servicer" lazy>服务人员</el-tab-pane>
@@ -86,39 +132,51 @@ https://www.e-learn.cn/content/javascript/921294
 
 是否必填，格式验证，大小验证
 
-```js
+``` js
 rules: {
-    name:[{
-      required: true, message: '请输入用户名', trigger: 'blur'
+    name: [{
+        required: true,
+        message: '请输入用户名',
+        trigger: 'blur'
     }, {
-      min: 2, max: 6, message: '长度在 2 到 6 个字符'
-    },{
-      pattern: /^[\u4E00-\u9FA5]+$/, message: '用户名只能为中文'
-    },{
-      pattern:/^[a-zA-Z]w{1,4}$/, message: '以字母开头，长度在2-5之间， 只能包含字符、数字和下划线'
+        min: 2,
+        max: 6,
+        message: '长度在 2 到 6 个字符'
+    }, {
+        pattern: /^[\u4E00-\u9FA5]+$/,
+        message: '用户名只能为中文'
+    }, {
+        pattern: /^[a-zA-Z]w{1,4}$/,
+        message: '以字母开头，长度在2-5之间， 只能包含字符、数字和下划线'
     }],
     password: [{
-        required: true, message: '请输入密码', trigger: 'blur'
+        required: true,
+        message: '请输入密码',
+        trigger: 'blur'
     }, {
-        min: 6, max: 16, message: '长度在 6 到 16个字符'
+        min: 6,
+        max: 16,
+        message: '长度在 6 到 16个字符'
     }, {
-        pattern: /^(\w){6,16}$/, message: '只能输入6-16个字母、数字、下划线'
+        pattern: /^(\w){6,16}$/,
+        message: '只能输入6-16个字母、数字、下划线'
     }],
-    mobile:[{ 
-        required: true, message: '请输入手机号码', trigger: 'blur'
-    },{
-    validator:function(rule,value,callback){
-            if(/^1[34578]\d{9}$/.test(value) == false){
+    mobile: [{
+        required: true,
+        message: '请输入手机号码',
+        trigger: 'blur'
+    }, {
+        validator: function(rule, value, callback) {
+            if (/^1[34578]\d{9}$/.test(value) == false) {
                 callback(new Error("请输入正确的手机号"));
-            }else{
+            } else {
                 callback();
             }
-        }, trigger: 'blur'}
-    ],
-   }
+        },
+        trigger: 'blur'
+    }],
+}
 ```
-
-
 
 ## cascader
 
@@ -126,7 +184,7 @@ rules: {
 
 官网例子
 
-```vue
+``` vue
 <div class="block">
   <span class="demonstration">hover 触发子菜单</span>
   <el-cascader
@@ -138,7 +196,7 @@ rules: {
 
 生效例子
 
-```vue
+``` vue
 <div class="block">
   <span class="demonstration">hover 触发子菜单</span>
   <el-cascader
@@ -149,4 +207,3 @@ rules: {
   </el-cascader>
 </div
 ```
-

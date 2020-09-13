@@ -63,4 +63,22 @@ git是一个分布式代码版本管理控制系统
 
 `svn`：在git诞生前就已经存在;de版本控制系统，不过它是“集中式”管理
 
-![集中式vs分布式](../../img/集中式vs分布式.png)
+1.集中式版本控制系统
+
+2.分布式版本控制系统
+
+集中式和分布式的区别
+
+![集中式vs分布式](~@img/集中式vs分布式.png)
+
+### git的工作管理和基础操作
+
+在本地创建git仓库管理我们的代码
+
+>初次使用git时，先在本地配置一些基础信息。配置的用户名和邮箱和gitHub保持一致（这样以后本>地向gitHub推送内容时，能够展示出是谁推荐的）
+>```shell
+>git config -L
+>git config --global user.name 'xxx'
+>git config --global user.email 'xxx'
+>```
+
