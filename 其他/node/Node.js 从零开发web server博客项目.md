@@ -139,6 +139,55 @@
 - commonjs 模块化
 - nodejs debugger
 
+### server端和前端的区别
+
+- 服务稳定性
+- 考虑内存和CPU（优化，扩展）
+- 日志记录
+- 安全
+- 集群和服务拆分
+
+**服务稳定性**
+
+- server 端可能会遭受各种恶意工具和误操作
+- 单个客户端可以意外挂掉，但是服务端不能
+- 后面会有 PM2 做进程守候
+
+**考虑内存和CPU（优化，扩展）**
+
+- 客户端独占一个浏览器，内存和 CPU 都不是问题
+- server 端要承载很多请求，CPU 和内存都是稀缺资源
+- 后面会使用 steam 写日志，使用 redis 存 session
+
+**日志记录**
+
+- 前端也会参与写日志，但只是日志的发起方，不关心后续
+- server 端要记录日志、存储日志、分析日志，前端不关心
+- 后面会有多种日志记录方式，以及如何分析日志
+
+**安全**
+
+- server 端要随时准备接收各种恶意攻击，前端则少很多
+- 如：越权操作，数据库攻击等
+- 后面会有登录验证，预防 xss 攻击和 sql 注入
+
+**集群和服务拆分**
+
+- 产品发展速度快，流量可能会迅速增加
+- 如何通过扩展机器和服务拆分来承载大流量？
+- 本项目虽然是单机器开发，但是从设 计上支持服务拆分
+
+**总结**
+
+- 几点区别
+- 将如何在 nodejs 中解决
+
+### 总结
+
+- nodejs 下载安装，两种方式
+- nodejs 和前端 javascript 的区别，commonjs 和 dubugger
+- server 开发和前端开发的区别，重点在于切换思路
+
 ## 第3章 项目介绍
 
 课程是通过案例的形式来学习 nodejs ，本章先来介绍这个案例，即个人博客项目。包括需求分析、原型图设计、以及 server 端的技术方案设计。有了详细的设计方案，才能指导后续的实际开发。
@@ -235,7 +284,7 @@ server.listen(8000)
 // 然后浏览器访问 http://localhost:8000/
 ```
 
-### 4-2 处理get请求**试看**
+### 4-2 处理get请求
 
 - get 请求，即客户端要向 server 端获取数据，如查询博客列表
 - 通过 querystring 来传递数据，如 a.html?a=100&b=200
@@ -373,10 +422,69 @@ server.listen(8000)
 ```
 
 ### 4-4 处理http请求的综合示例
+<<<<<<< HEAD:docs/node/Node.js 从零开发web server博客项目.md
+
+```js
+const http = require('http')
+const querystring = require('querystring')
+
+const server = http.createServer((req, res) => {
+  const method = req.method
+  const url = req.url
+  const path = url.split('?')[0]
+  const query = querystring.parse(url.split('?')[1])
+
+  // 设置返回格式为 JSON
+  res.setHeader('Content-type', 'application/json')
+
+  // 返回的数据
+  const resData = {
+    method,
+    url,
+    path,
+    query
+  }
+
+  // 返回
+  if (method === 'GET') {
+    res.end(
+      JSON.stringify(resData)
+    )
+  }
+  if (method === 'POST') {
+    let postData = ''
+    req.on('data', chunk => {
+      postData += chunk.toString()
+    })
+    req.on('end', () => {
+      resData.postData = postData
+      // 返回
+      res.end(
+        JSON.stringify(resData)
+      )
+    })
+  }
+})
+
+server.listen(8000)
+console.log('server is running on 8000')
+```
+=======
+>>>>>>> da02d5cd936b3a800eb50768795c4f22ed49c7f3:其他/node/Node.js 从零开发web server博客项目.md
 
 ### 4-5 搭建开发环境
+
+- 从 0 开始搭建，不使用任何框架
+- 使用 nodemon 检测文件变化，自动重启 node
+- 使用 crose-env 设置环境变量，兼容 mac linux 和 windows
+
 ### 4-6 初始化路由
 
+<<<<<<< HEAD:docs/node/Node.js 从零开发web server博客项目.md
+- 初始化路由：根据之前技术方案的设计，做出路由
+- 返回假数据：将路由和数据处理分离，以符合设计原则
+
+=======
 开发接口
 
 - 初始化路由：根据之前的技术方案的设计，做出路由
@@ -384,6 +492,7 @@ server.listen(8000)
 
 接口设计之前的图
 
+>>>>>>> da02d5cd936b3a800eb50768795c4f22ed49c7f3:其他/node/Node.js 从零开发web server博客项目.md
 ### 4-7 开发路由（博客列表路由）_1
 ### 4-8 开发路由（博客详情路由）
 ### 4-9 开发路由（处理 POSTData）
