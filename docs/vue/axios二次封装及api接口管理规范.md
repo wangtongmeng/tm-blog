@@ -7,7 +7,6 @@ http://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Fetch_API/Using_Fetch
 发展过程：ajax -> jquery封装的ajax -> axios（结合promise） -> fetch
 
 axios是基于ajax和promise进行封装的库。所以jquery的ajax和axios都是基于ajax的进一步封装。
-
 fetch是浏览器内置的api，**fetch和ajax不同，它们是两套完全不同的机制**。fetch的好处：它是内置的类，进行数据请求，天生就是基于Promise进行管理的。需要兼容的话，可以安装babel-Polyfill依赖。
 
 ## 基于axios实现接口请求库的封装

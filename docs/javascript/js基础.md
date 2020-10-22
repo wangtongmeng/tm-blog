@@ -1,4 +1,4 @@
-# js基础
+# javascript
 数据类型、堆栈内存、作用域与作用域链、闭包、原型与原型链、面向对象
 
 四大高阶技巧：惰性函数、柯里化函数、curring函数（混装）、compose函数（立即调用函数扁平化）
@@ -18,6 +18,24 @@
 
 
 null 空对象指针 ，让变量不再指向任何堆内存，当前堆内存就不会被引用，chrome浏览器会在空闲时，检测没有做占用的堆内存并手动释放，如果是IE浏览器通过引用计数
+
+## 数组/对象常用方法
+
+#### 数组
+
+https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array 
+
+Array.prototype：concat、copyWithin、entries、every、fill、filter、findIndex、flat、flatMap、forEach、includes、indexOf、join、keys、lastIndexOf、map、pop、push、reduce、reduceRight、reverse、shift、slice、some、sort、splice、tolocaleString、unshift、values、 Symbol(Symbol.iterator)、 Symbol(Symbol.unscopables) 
+
+Array：from、isArray
+
+#### 对象
+
+ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object 
+
+Object.prototype： hasOwnProperty 、 isPrototypeOf 、 propertyIsEnumerable 、toLocaleString、toString、valueOf 
+
+Object： assign、create 、defineProperties、defineProperty、entries、freeze、fromEntries、 getOwnPropertyDescriptor、getOwnPropertyDescriptors、getOwnPropertyNames、getOwnPropertySymbols、getPrototypeOf、is、isExtensible、isFrozen、isSealed、keys
 
 ## JS 中的四大继承方案
 
