@@ -1,0 +1,9 @@
+# vue3更新概览
+
+- Slot API 的变化
+- 全局API使用规范变化
+- Teleport 远程传送 modal，dropdown
+- Composition API
+- v-model
+- 指令API的变化
+
