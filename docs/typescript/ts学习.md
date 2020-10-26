@@ -189,8 +189,8 @@ let arr: number[] // 声明一个变量arr，类型是元素都是number的数�
 arr = [5, 3, 9]
 // 写法2
 let arr2: Array<number>
-
-let arr3: (string | number)[] // 变量arr3的元素既可以是string也可以是number组成的数组
+ 
+let arr3: (string | n umber)[] // 变量arr3的元素既可以是string也可以是number组成的数组
 let arr4: Array<string | number>
 arr3 = [1, 'a']
 arr4 = [1, 'a']
@@ -238,7 +238,7 @@ let value: any
 value = 'abc'
 value = 123
 value = false
-const arr5: any[] = [1, 'a'] // 数组元素类型任意
+const arr5: any[] = [1, 'a'] // 数组元素类型任意，定义常量必须设置值
 ```
 ### void类型
 void类型与any类型相反，表示任意类型都不是
@@ -246,10 +246,10 @@ void类型与any类型相反，表示任意类型都不是
 const consoleText = (text: string): void => { // 参数text这里需要类型，后面可以通过配置成不指定类型也不会报错。指定函数返回值是void
   console.log(text)
 }
-console.log('abc') // 'abc'
+consoleText('abc') // 'abc'
 let v: void
 v = undefined // undefined和null可以赋值给void类型
-v = null // 需要再tsconfig.json中关掉"strict": true
+v = null // 需要在tsconfig.json中关掉"strict": true，相当于下面子选项都是true("strictNullChecks"设置为true导致的)
 ```
 ### null和undefined
 在js中null和undefined是基础类型。在ts中他们既是值也是类型。
@@ -308,3 +308,57 @@ const getLength = (target: string | number): number => { // 高级类型的自�
 getLength(123)
 getLength('123')
 ```
+
+## ES6 - Symbol
+
+- 基础
+- 作为属性名
+- 属性名的遍历
+- Symbol.for和Symbol.keyFor
+- 11个内置Symbol值
+
+### 基础
+
+## 接口
+
+- 基本用法
+- 可选属性
+- 多余属性检查
+- 绕开多余属性检查
+- 只读属性
+- 函数类型
+- 索引类型
+- 继承接口
+- 混合类型接口
+
+使用`tslint --init`，创建一个tslint.json文件
+
+安装vscode扩展插件， TSLint (deprecated)
+
+vscode settings 搜索autofix，点击workspace的settings.josn
+
+```json
+{
+    "tslint.autoFixOnSave": true // 在保存时自动修复eslint提示的错误
+}
+```
+
+
+
+根据错误提示进行配置 rules ，tslint.json
+
+```json
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "quotemark": [false],
+        "semicolon": [false]
+    },
+    "rulesDirectory": []
+}
+```
+
