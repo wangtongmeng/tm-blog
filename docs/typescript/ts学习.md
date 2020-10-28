@@ -317,7 +317,168 @@ getLength('123')
 - Symbol.for和Symbol.keyFor
 - 11个内置Symbol值
 
+```json
+// tsconfig.json，引入es6的库，防止报错
+{
+"lib": [
+      "es6"
+    ], 
+}
+```
+
+
+
 ### 基础
+
+创建symbol，独一无二的值
+
+```js
+const s1 = Symbol();
+console.log(s1);
+const s2 = Symbol();
+console.log(s2);
+
+console.log(s1 === s2); // 直接copy到浏览器中 false
+```
+
+创建时，传参作为标识
+
+```js
+const s3 = Symbol("zhangsan");
+console.log(s3);
+const s4 = Symbol("zhangsan");
+console.log(s4);
+
+console.log(s3 === s4); // 直接copy到浏览器中 false
+```
+
+如果传入数字，在内部会先转成字符串；在ts中只能传入string或number
+
+如果传入对象
+
+```js
+const s5 = Symbol({a: 'a'}) // 传入对象会调用toStirng()转成字符串 Symbol([object Object])
+```
+
+symbol不能和其他值做运算
+
+symbol可以转换成字符串或布尔，本身不会本修改
+
+```js
+console.log(s4.toString()); // Symbol(zhangsan)
+console.log(Boolean(s4)); // true
+console.log(!s4); // false
+```
+
+### 作为属性名
+
+```js
+const s5 = Symbol("name");
+const info2 = {
+  [s5]: "zhangsan",
+  age: 18,
+  sex: "man",
+};
+console.log(info2); // {age: 18, sex: "man", Symbol(name): "zhangsan"}
+info2[s5] = "lisi"; // 可以在类中实现私有属性/方法的效果
+console.log(info2); // {age: 18, sex: "man", Symbol(name): "lisi"}
+```
+
+### 属性名的遍历
+
+以下四种遍历方法，不能遍历symbol的属性名
+
+```js
+for (const key in info2) {
+  console.log(key); // age sex
+}
+console.log(Object.keys(info2)); // ["age", "sex"]
+console.log(Object.getOwnPropertyNames(info2)); // ["age", "sex"]
+console.log(JSON.stringify(info2)); // {"age":18,"sex":"man"}
+```
+下面两种方法可以遍历到symbol
+```js
+// 返回对象中所有symbol类型的属性名
+console.log(Object.getOwnPropertySymbols(info2)); // [Symbol(name)]
+
+console.log(Reflect.ownKeys(info2)); // ["age", "sex", Symbol(name)]
+```
+
+### Symbol.for和Symbol.keyFor
+
+/symbol的两个静态方法
+
+Symbol.for() Symbol.keyFor(当前页面，嵌套的iframe、serviceworker) 返回symbol值
+
+```js
+const s6 = Symbol("zhangsan");
+const s7 = Symbol("zhangsan");
+console.log(s6 === s7) // false
+
+const s8 = Symbol.for("zhangsan");
+const s9 = Symbol.for("zhangsan"); // 先去全局找，如果有直接返回，不在重新创建
+console.log(s8 === s9) // true copy到浏览器中
+```
+
+Symbol.keyFor()配合Symbol.for()使用，返回Symbol.for('...')的标识
+
+```js
+console.log(Symbol.keyFor(s8)); // zhangsan
+```
+
+### 11个内置Symbol值
+
+11个内置的symbol值,指向js内部的属性和方法
+
+#### 1.Symbol.hasInstance
+
+当把Symbol.hasInstance作为对象的方法名时，当对象调用instanceof时，会执行
+
+```js
+const obj1 = {
+  [Symbol.hasInstance](otherObj) {
+    console.log(otherObj);
+  },
+};
+console.log({ a: "a" } instanceof <any>obj1); // {a: 'a'} false
+```
+
+#### 2.Symbol.isConcatSpreadable
+
+设置concat是否扁平化，可读写的布尔值
+
+```js
+let arr = [1, 2];
+console.log([].concat(arr, [3, 4])); // [1, 2, 3, 4]
+console.log(arr[Symbol.isConcatSpreadable]); // undefined
+arr[Symbol.isConcatSpreadable] = false; // 调用concat不扁平化
+console.log([].concat(arr, [3, 4])); // [Array(2), 3, 4]
+console.log(arr[Symbol.isConcatSpreadable]); // false
+```
+
+#### 3.Symbol.species
+
+指定创建衍生对象的构造函数
+
+```js
+class C extends Array {
+  constructor(...args) {
+    super(...args);
+  }
+  static get [Symbol.species]() {
+    // 在浏览器中，若去掉则 a instanceof C 为true
+    return Array;
+  }
+  getName() {
+    return "zhangsan";
+  }
+}
+const c = new C(1, 2, 3); // [1, 2, 3]
+const a = c.map((item) => item + 1); // a 是 c 的衍生对象
+// console.log(a) // [2,3,4]
+// console.log(a instanceof C) // false
+// console.log(a instanceof Array) // true
+```
 
 ## 接口
 
@@ -361,4 +522,25 @@ vscode settings 搜索autofix，点击workspace的settings.josn
     "rulesDirectory": []
 }
 ```
+
+## 函数
+
+- 函数类型
+  - 为函数定义类型
+  - 完整的函数类型
+  - 使用接口定义函数类型
+  - 使用类型别名
+- 参数
+  - 可选参数
+  - 默认参数
+  - 剩余参数
+- 重载
+
+## 泛型
+
+- 简单使用
+- 泛型变量
+- 泛型类型
+- 泛型约束
+- 在泛型约束中使用类型参数
 
