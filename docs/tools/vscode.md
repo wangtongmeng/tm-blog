@@ -11,3 +11,4 @@ Code Spell Checker
 ## 自动导出
 
 通过export default 导出变量，在其他文件使用该变量时会自动导入
+
