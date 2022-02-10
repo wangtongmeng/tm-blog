@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/littlebirdflying/tm-blog#readme",
   "devDependencies": {
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "^8.0.2",
     "vuepress": "^1.2.0",
     "vuepress-plugin-autobar": "github:boboidream/vuepress-bar"
